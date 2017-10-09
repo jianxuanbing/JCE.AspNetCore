@@ -44,7 +44,20 @@ namespace JCE.Samples.Webs
                 app.UseBrowserLink();
             }
 
-            app.UseMvc();
+            ConfigRoute(app);
+        }
+
+        /// <summary>
+        /// 路由配置，支持区域
+        /// </summary>
+        /// <param name="app">应用生成器</param>
+        private void ConfigRoute(IApplicationBuilder app)
+        {
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("areaRoute", "{area:exists}/{controller}/{action=Index}/{id?}");
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

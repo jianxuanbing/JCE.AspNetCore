@@ -12,16 +12,16 @@ namespace JCE.Samples.Webs.Controllers
     [Route("api/[controller]")]
     public class WebPathController : Controller
     {
-        [HttpGet]
+        [HttpGet("[action]")]
         public string GetWebRootPath()
         {
             return Web.HostingEnvironment.WebRootPath;
         }
 
-        //[HttpGet]
-        //public string GetContentRootPath()
-        //{
-        //    return Web.HostingEnvironment.ContentRootPath;
-        //}
+        [HttpGet("[action]")]
+        public string GetContentRootPath()
+        {
+            return Web.HostingEnvironment.ContentRootPath;
+        }
     }
 }
