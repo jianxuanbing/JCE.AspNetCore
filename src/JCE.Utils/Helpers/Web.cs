@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Text;
 using JCE.Utils.Extensions;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 
@@ -27,6 +28,11 @@ namespace JCE.Utils.Helpers
         /// 当前Http上下文
         /// </summary>
         public static HttpContext HttpContext => HttpContextAccessor?.HttpContext;
+
+        /// <summary>
+        /// 获取Host环境
+        /// </summary>
+        public static IHostingEnvironment HostingEnvironment => GetHostingEnvironment();
 
         #endregion
 
@@ -136,5 +142,13 @@ namespace JCE.Utils.Helpers
 
         #endregion
 
+        /// <summary>
+        /// 获取Host环境
+        /// </summary>
+        /// <returns></returns>
+        private static IHostingEnvironment GetHostingEnvironment()
+        {
+            return (IHostingEnvironment) HttpContext?.RequestServices.GetService(typeof(IHostingEnvironment));
+        }
     }
 }
