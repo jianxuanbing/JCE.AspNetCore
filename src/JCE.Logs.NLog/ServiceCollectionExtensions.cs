@@ -10,7 +10,7 @@ namespace JCE.Logs.NLog
     /// <summary>
     /// 日志服务 扩展
     /// </summary>
-    public static partial class ServiceExtensions
+    public static partial class ServiceCollectionExtensions
     {
         /// <summary>
         /// 注册NLog日志操作
