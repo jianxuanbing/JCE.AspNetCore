@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using Autofac;
+using JCE.Contexts;
 using JCE.Helpers;
 using JCE.Reflections;
 using JCE.Utils.Helpers;
@@ -81,7 +82,7 @@ namespace JCE.Dependency
         {
             EnableAop();
             RegistFinder();
-
+            RegistContext();
         }
 
         /// <summary>
@@ -89,7 +90,7 @@ namespace JCE.Dependency
         /// </summary>
         private void EnableAop()
         {
-            
+            _builder.EnableAop();
         }
 
         /// <summary>
@@ -105,7 +106,8 @@ namespace JCE.Dependency
         /// </summary>
         private void RegistContext()
         {
-            
+            _builder.AddSingleton<IContext, WebContext>();
+            _builder.AddScoped<IUserContext, NullUserContext>();
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JCE.Logs.Exceptionless;
 using JCE.Utils.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,16 +24,20 @@ namespace JCE.Samples.Webs
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
-            var serviceProvider = services.BuildServiceProvider();
+            services.AddExceptionless(config =>
+            {
+                config.ApiKey = "CqcBoQlNP1FBxCWLe0o5ZpX3eSmB3JqK4QUvDGUw";
+                config.ServerUrl = "http://192.168.88.20:10240";
+            });
+            var serviceProvider = services.AddJce();            
 
             var accessor = serviceProvider.GetService<IHttpContextAccessor>();
             Web.SetHttpContextAccessor(accessor);
 
-            
+            return serviceProvider;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JCE.GlobalConfigs;
+using JCE.GlobalConfigs.Models;
 using JCE.Utils.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using JCE.Utils.Configs;
@@ -29,6 +31,12 @@ namespace JCE.Samples.Webs.Controllers
         public string GetConsoleLogLevel()
         {
             return ConfigUtil.GetJsonConfig().GetSection("Logging:Console:LogLevel:Default").Value;
+        }
+
+        [HttpGet("[action]")]
+        public JCEConfig GetGloalConfig()
+        {
+            return ConfigManager.Config;
         }
     }
 }

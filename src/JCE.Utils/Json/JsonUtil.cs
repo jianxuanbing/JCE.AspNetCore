@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -10,6 +12,11 @@ namespace JCE.Utils.Json
     /// </summary>
     public static class JsonUtil
     {
+        /// <summary>
+        /// 对象锁
+        /// </summary>
+        private static object lockObj=new object();
+
         #region JsonDateTimeFormat(Json时间格式化)
 
         /// <summary>
@@ -79,6 +86,57 @@ namespace JCE.Utils.Json
             }
             return result;
         }
+        #endregion
+
+        #region SerializableToFile(将对象序列化到Json文件)
+
+        /// <summary>
+        /// 将对象序列化到Json文件
+        /// </summary>
+        /// <param name="fileName">文件名，绝对路径</param>
+        /// <param name="obj">对象</param>
+        public static void SerializableToFile(string fileName, object obj)
+        {
+            lock (obj)
+            {
+                using (FileStream fs=new FileStream(fileName,FileMode.OpenOrCreate))
+                {
+                    using (StreamWriter sw=new StreamWriter(fs,Encoding.UTF8))
+                    {
+                        sw.Write(ToJson(obj,false,false,true));
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region DeserializeFromFile(从Json文件反序列成对象)
+
+        /// <summary>
+        /// 从Json文件反序列成对象
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="fileName">文件名，绝对路径</param>
+        /// <returns></returns>
+        public static T DeserializeFromFile<T>(string fileName)
+        {
+            try
+            {
+                using (FileStream fs=new FileStream(fileName,FileMode.OpenOrCreate))
+                {
+                    using (StreamReader sr=new StreamReader(fs,Encoding.UTF8))
+                    {
+                        return ToObject<T>(sr.ReadToEnd());
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         #endregion
     }
 }

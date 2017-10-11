@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Exceptionless;
+using JCE.GlobalConfigs;
 using JCE.Logs.Abstractions;
 using JCE.Logs.Contents;
 using Microsoft.Extensions.Logging;
@@ -51,8 +52,8 @@ namespace JCE.Logs.Exceptionless
         public ExceptionlessProvider(string logName)
         {
             LogName = logName;
-            IsDebugEnabled = ExceptionlessConfig.Instance.EnabledDebug;
-            IsTraceEnabled = ExceptionlessConfig.Instance.EnabledTrace;
+            IsDebugEnabled = ConfigManager.Config.Logger.EnabledDebug;
+            IsTraceEnabled = ConfigManager.Config.Logger.EnabledTrace;
             _client = el.ExceptionlessClient.Default;
         }
 
