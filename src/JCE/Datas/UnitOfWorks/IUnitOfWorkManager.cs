@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace JCE.Datas.UnitOfWorks
+{
+    /// <summary>
+    /// 工作单元管理器
+    /// </summary>
+    public interface IUnitOfWorkManager
+    {
+        /// <summary>
+        /// 提交
+        /// </summary>
+        void Commit();
+
+        /// <summary>
+        /// 提交
+        /// </summary>
+        /// <returns></returns>
+        Task CommitAsync();
+
+        /// <summary>
+        /// 注册工作单元
+        /// </summary>
+        /// <param name="unitOfWork">工作单元</param>
+        void Register(IUnitOfWork unitOfWork);
+    }
+}
