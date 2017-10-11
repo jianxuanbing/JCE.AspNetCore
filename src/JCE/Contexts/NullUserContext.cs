@@ -13,5 +13,10 @@ namespace JCE.Contexts
         /// 用户编号
         /// </summary>
         public string UserId => string.Empty;
+
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        public string UserName => string.Empty;
     }
 }

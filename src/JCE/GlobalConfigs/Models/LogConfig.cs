@@ -6,7 +6,7 @@ using System.Text;
 namespace JCE.GlobalConfigs.Models
 {
     /// <summary>
-    /// 日志配置
+    /// 日志 配置
     /// </summary>
     public class LogConfig
     {

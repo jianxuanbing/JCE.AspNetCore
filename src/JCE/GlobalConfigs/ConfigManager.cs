@@ -71,11 +71,14 @@ namespace JCE.GlobalConfigs
         static ConfigManager()
         {
             _initConfig=new JCEConfig();
+
             _initConfig.Logger.EnabledDebug = true;
             _initConfig.Logger.EnabledTrace = true;
             _initConfig.Logger.Level = "DEBUG";
             _initConfig.Logger.Type = "File";
             _initConfig.Logger.ProjectName = "JCE";
+
+            _initConfig.UserContext.EnabledUserName = false;
         }
 
         #endregion        

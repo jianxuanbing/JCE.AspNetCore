@@ -15,6 +15,11 @@ namespace JCE.Contexts
         public string UserId { get; }
 
         /// <summary>
+        /// 用户名
+        /// </summary>
+        public string UserName { get; }
+
+        /// <summary>
         /// 空用户上下文
         /// </summary>
         public static readonly IUserContext Null=new NullUserContext();
@@ -22,10 +27,12 @@ namespace JCE.Contexts
         /// <summary>
         /// 初始化一个<see cref="UserContext"/>类型的实例
         /// </summary>
-        /// <param name="userId"></param>
-        public UserContext(string userId)
+        /// <param name="userId">用户ID</param>
+        /// <param name="userName">用户名</param>
+        public UserContext(string userId,string userName)
         {
             UserId = userId;
+            UserName = userName;
         }
     }
 }
