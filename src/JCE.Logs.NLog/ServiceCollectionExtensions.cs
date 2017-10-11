@@ -20,7 +20,7 @@ namespace JCE.Logs.NLog
         public static void AddNLog(this IServiceCollection services)
         {
             services.AddScoped<ILogProviderFactory, JCE.Logs.NLog.LogProviderFactory>();
-            services.AddScoped<ILogFormat, ContentFormat>();
+            services.AddSingleton<ILogFormat, ContentFormat>();
             services.AddScoped<ILogContext, JCE.Logs.Core.LogContext>();
             services.AddScoped<ILog, JCE.Logs.Log>();
         }

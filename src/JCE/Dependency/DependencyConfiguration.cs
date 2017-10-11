@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Autofac;
 using JCE.Contexts;
+using JCE.Events.Handlers;
 using JCE.Helpers;
 using JCE.Reflections;
 using JCE.Utils.Helpers;
@@ -72,8 +74,11 @@ namespace JCE.Dependency
             _finder=new WebAppTypeFinder();
             _assemblies = _finder.GetAssemblies();
             RegistInfrastracture();
-
+            RegistEventHandlers();
+            RegistDependency();
         }
+
+        #region 基础设施注册
 
         /// <summary>
         /// 注册基础设施
@@ -98,7 +103,7 @@ namespace JCE.Dependency
         /// </summary>
         private void RegistFinder()
         {
-            
+            _builder.AddSingleton(_finder);
         }
 
         /// <summary>
@@ -118,20 +123,40 @@ namespace JCE.Dependency
             Web.SetHttpContextAccessor(Ioc.Create<IHttpContextAccessor>());
         }
 
+        #endregion
+
+        #region 事件处理器注册
+
         /// <summary>
         /// 注册事件处理器
         /// </summary>
         private void RegistEventHandlers()
         {
-            
+            var handlerTypes = GetTypes(typeof(IEventHandler<>));
+            foreach (var handler in handlerTypes)
+            {
+                _builder.RegisterType(handler)
+                    .As(handler.FindInterfaces(
+                        (filter, criteria) => filter.IsGenericType &&
+                                              ((Type) criteria).IsAssignableFrom(filter.GetGenericTypeDefinition()),
+                        typeof(IEventHandler<>)
+                    )).InstancePerLifetimeScope();
+            }
         }
+
+        #endregion
+
+        #region 依赖自动注册
 
         /// <summary>
         /// 查找并注册依赖
         /// </summary>
         private void RegistDependency()
         {
-            
+            RegistSingletonDependency();
+            RegistScopeDependency();
+            RegistTransientDependency();
+            ResolveDependencyRegistrar();
         }
 
         /// <summary>
@@ -139,7 +164,7 @@ namespace JCE.Dependency
         /// </summary>
         private void RegistSingletonDependency()
         {
-            
+            _builder.RegisterTypes(GetTypes<ISingletonDependency>()).AsImplementedInterfaces().PropertiesAutowired().SingleInstance();
         }
 
         /// <summary>
@@ -147,7 +172,7 @@ namespace JCE.Dependency
         /// </summary>
         private void RegistScopeDependency()
         {
-            
+            _builder.RegisterTypes(GetTypes<IScopeDependency>()).AsImplementedInterfaces().PropertiesAutowired().InstancePerLifetimeScope();
         }
 
         /// <summary>
@@ -155,7 +180,7 @@ namespace JCE.Dependency
         /// </summary>
         private void RegistTransientDependency()
         {
-            
+            _builder.RegisterTypes(GetTypes<ITransientDependency>()).AsImplementedInterfaces().PropertiesAutowired().InstancePerDependency();
         }
 
         /// <summary>
@@ -163,8 +188,12 @@ namespace JCE.Dependency
         /// </summary>
         private void ResolveDependencyRegistrar()
         {
-            
+            var types = GetTypes<IDependencyRegistrar>();
+            types.Select(type => Reflection.CreateInstance<IDependencyRegistrar>(type)).ToList()
+                .ForEach(t => t.Register(_services));
         }
+
+        #endregion
 
         /// <summary>
         /// 获取类型集合
@@ -185,5 +214,6 @@ namespace JCE.Dependency
         {
             return _finder.Find(type, _assemblies).ToArray();
         }
+
     }
 }

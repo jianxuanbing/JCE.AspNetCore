@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JCE.Logs.Exceptionless;
+using JCE.Logs.NLog;
 using JCE.Utils.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,11 +28,12 @@ namespace JCE.Samples.Webs
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddExceptionless(config =>
-            {
-                config.ApiKey = "CqcBoQlNP1FBxCWLe0o5ZpX3eSmB3JqK4QUvDGUw";
-                config.ServerUrl = "http://192.168.88.20:10240";
-            });
+            services.AddNLog();
+            //services.AddExceptionless(config =>
+            //{
+            //    config.ApiKey = "CqcBoQlNP1FBxCWLe0o5ZpX3eSmB3JqK4QUvDGUw";
+            //    config.ServerUrl = "http://192.168.88.20:10240";
+            //});
             var serviceProvider = services.AddJce();            
 
             var accessor = serviceProvider.GetService<IHttpContextAccessor>();

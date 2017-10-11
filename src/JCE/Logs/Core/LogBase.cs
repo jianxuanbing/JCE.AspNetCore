@@ -264,7 +264,7 @@ namespace JCE.Logs.Core
         /// <returns></returns>
         private bool Enabled(LogLevel level)
         {
-            if (level > LogLevel.Debug)
+            if (level >= LogLevel.Debug)
             {
                 return true;
             }
