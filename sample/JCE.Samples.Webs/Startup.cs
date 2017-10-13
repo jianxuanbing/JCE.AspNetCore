@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using JCE.Logs.Log4Net;
 
 namespace JCE.Samples.Webs
 {
@@ -28,7 +29,8 @@ namespace JCE.Samples.Webs
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddNLog();
+            //services.AddNLog();
+            services.AddLog4Net();
             //services.AddExceptionless(config =>
             //{
             //    config.ApiKey = "CqcBoQlNP1FBxCWLe0o5ZpX3eSmB3JqK4QUvDGUw";

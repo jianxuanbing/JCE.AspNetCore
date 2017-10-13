@@ -4,4 +4,13 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JCE.Logs\JCE.Logs.csproj" />
+    <ProjectReference Include="..\JCE\JCE.csproj" />
+  </ItemGroup>
+
 </Project>
