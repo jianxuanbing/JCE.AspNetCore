@@ -27,21 +27,6 @@ namespace JCE.Utils.Helpers
         }
 
         /// <summary>
-        /// 获取类型描述
-        /// </summary>
-        /// <param name="type">类型</param>
-        /// <returns></returns>
-        public static string GetDescription(Type type)
-        {
-            if (type == null)
-            {
-                return string.Empty;
-            }
-            var attribute = type.GetTypeInfo().GetCustomAttribute(typeof(DescriptionAttribute)) as DescriptionAttribute;
-            return attribute == null ? type.Name : attribute.Description;
-        }
-
-        /// <summary>
         /// 获取类型成员描述，使用<see cref="DescriptionAttribute"/>设置描述
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
@@ -93,13 +78,22 @@ namespace JCE.Utils.Helpers
         /// <returns></returns>
         public static string GetDisplayName<T>()
         {
-            var type = Common.GetType<T>();
-            var attribute = type.GetTypeInfo().GetCustomAttribute(typeof(DisplayNameAttribute)) as DisplayNameAttribute;
-            if (attribute == null)
+            return GetDisplayName(Common.GetType<T>());
+        }
+
+        /// <summary>
+        /// 获取类型显示名称，使用<see cref="DisplayNameAttribute"/>设置显示名称
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <returns></returns>
+        private static string GetDisplayName(Type type)
+        {
+            if (type == null)
             {
                 return string.Empty;
             }
-            return attribute.DisplayName;
+            var attribute = type.GetCustomAttribute(typeof(DisplayNameAttribute)) as DisplayNameAttribute;
+            return attribute != null ? attribute.DisplayName : string.Empty;
         }
 
         /// <summary>
@@ -107,7 +101,7 @@ namespace JCE.Utils.Helpers
         /// </summary>
         /// <param name="member">成员</param>
         /// <returns></returns>
-        public static string GetDisplayName(MemberInfo member)
+        private static string GetDisplayName(MemberInfo member)
         {
             if (member == null)
             {
@@ -125,15 +119,16 @@ namespace JCE.Utils.Helpers
             }
             return displayAttribute.Description;
         }
+
         #endregion
 
-        #region GetDescriptionOrDisplayName(获取类型描述或显示名称)
+        #region GetDisplayNameOrDescription(获取显示名称或类型描述)
         /// <summary>
-        /// 获取类型描述或显示名称，使用<see cref="DescriptionAttribute"/>设置描述，使用<see cref="DisplayNameAttribute"/>设置显示名称
+        /// 获取类型显示名称或描述，使用<see cref="DescriptionAttribute"/>设置描述，使用<see cref="DisplayNameAttribute"/>设置显示名称
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
         /// <returns></returns>
-        public static string GetDescriptionOrDisplayName<T>()
+        public static string GetDisplayNameOrDescription<T>()
         {
             var type = Common.GetType<T>();
             var result = GetDisplayName(type);
@@ -145,11 +140,11 @@ namespace JCE.Utils.Helpers
         }
 
         /// <summary>
-        /// 获取类型成员描述或显示名称，使用<see cref="DescriptionAttribute"/>设置描述，使用<see cref="DisplayNameAttribute"/>或<see cref="DisplayAttribute"/>设置显示名称
+        /// 获取类型显示名称或成员描述，使用<see cref="DescriptionAttribute"/>设置描述，使用<see cref="DisplayNameAttribute"/>或<see cref="DisplayAttribute"/>设置显示名称
         /// </summary>
         /// <param name="member">成员</param>
         /// <returns></returns>
-        public static string GetDescriptionOrDisplayName(MemberInfo member)
+        public static string GetDisplayNameOrDescription(PropertyInfo member)
         {
             var result = GetDisplayName(member);
             if (!result.IsEmpty())

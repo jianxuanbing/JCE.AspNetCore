@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace JCE.Logs {
+namespace JCE.Logs.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace JCE.Logs {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JCE.Logs.LogResource", typeof(LogResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JCE.Logs.Properties.LogResource", typeof(LogResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

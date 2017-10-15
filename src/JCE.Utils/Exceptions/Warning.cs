@@ -9,7 +9,7 @@ namespace JCE.Utils.Exceptions
     /// </summary>
     public class Warning : Exception
     {
-        #region Property(属性)
+        #region 属性
         /// <summary>
         /// 错误消息
         /// </summary>
@@ -59,7 +59,7 @@ namespace JCE.Utils.Exceptions
 
         #endregion
 
-        #region Constructor(构造函数)
+        #region 构造函数
         /// <summary>
         /// 初始化一个<see cref="Warning"/>类型的实例
         /// </summary>

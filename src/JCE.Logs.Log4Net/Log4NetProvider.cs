@@ -15,7 +15,7 @@ namespace JCE.Logs.Log4Net
     /// </summary>
     public class Log4NetProvider:ILogProvider
     {
-        #region Property(属性)
+        #region 属性
 
         /// <summary>
         /// Log4Net 日志操作
@@ -49,7 +49,7 @@ namespace JCE.Logs.Log4Net
 
         #endregion
 
-        #region Constructor(构造函数)
+        #region 构造函数
 
         /// <summary>
         /// 初始化一个<see cref="Log4NetProvider"/>类型的实例

@@ -10,7 +10,7 @@ namespace JCE.Logs.Internal
     /// </summary>
     public class LogContextInfo
     {
-        #region Property(属性)
+        #region 属性
         /// <summary>
         /// 跟踪号
         /// </summary>

@@ -13,7 +13,7 @@ namespace JCE.Logs.NLog
     /// </summary>
     public class NLogProvider:ILogProvider
     {
-        #region Property(属性)
+        #region 属性
         /// <summary>
         /// NLog 日志操作
         /// </summary>
@@ -41,7 +41,7 @@ namespace JCE.Logs.NLog
 
         #endregion
 
-        #region Constructor(构造函数)
+        #region 构造函数
         /// <summary>
         /// 初始化一个<see cref="NLogProvider"/>类型的实例
         /// </summary>

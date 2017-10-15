@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="LogResource.Designer.cs">
+    <Compile Update="Properties\LogResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>LogResource.resx</DependentUpon>
@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="LogResource.resx">
+    <EmbeddedResource Update="Properties\LogResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LogResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>

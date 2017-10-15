@@ -10,7 +10,7 @@ namespace JCE.Logs.Core
     /// </summary>
     public class NullLog : ILog
     {
-        #region Property(属性)
+        #region 属性
         /// <summary>
         /// 日志操作实例
         /// </summary>
