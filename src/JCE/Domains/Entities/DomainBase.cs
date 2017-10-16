@@ -164,11 +164,17 @@ namespace JCE.Domains.Entities
         /// <summary>
         /// 获取变更属性
         /// </summary>
-        /// <param name="other">新对象</param>
+        /// <param name="newEntity">新对象</param>
         /// <returns></returns>
-        public ChangeValueCollection GetChanges(T other)
+        public ChangeValueCollection GetChanges(T newEntity)
         {
-            throw new System.NotImplementedException();
+            _changeValues=new ChangeValueCollection();
+            if (Equals(newEntity, null))
+            {
+                return _changeValues;
+            }
+            AddChanges(newEntity);
+            return _changeValues;
         }
 
         /// <summary>

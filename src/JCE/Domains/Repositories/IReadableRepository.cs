@@ -96,5 +96,54 @@ namespace JCE.Domains.Repositories
         /// <param name="ids">逗号分隔的Id列表，范例："1,2"</param>
         /// <returns></returns>
         List<TEntity> FindByIdsAsync(string ids);
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        TEntity Single(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        List<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate = null);
+
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        Task<List<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> predicate = null);
+
+        /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        bool Exists(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        /// <param name="ids">实体标识集合，均存在返回true</param>
+        /// <returns></returns>
+        bool Exists(params TKey[] ids);
+
+        /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }
