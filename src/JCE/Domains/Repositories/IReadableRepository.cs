@@ -12,6 +12,15 @@ namespace JCE.Domains.Repositories
     /// 仓储 - 可读
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
+    public interface IReadableRepository<TEntity> : IReadableRepository<TEntity, Guid>
+        where TEntity : class, IAggregateRoot
+    {        
+    }
+
+    /// <summary>
+    /// 仓储 - 可读
+    /// </summary>
+    /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
     public interface IReadableRepository<TEntity,in TKey> where TEntity:class,IAggregateRoot
     {
@@ -135,7 +144,7 @@ namespace JCE.Domains.Repositories
         /// <summary>
         /// 判断实体是否存在
         /// </summary>
-        /// <param name="ids">实体标识集合，均存在返回true</param>
+        /// <param name="ids">实体标识集合</param>
         /// <returns></returns>
         bool Exists(params TKey[] ids);
 
@@ -145,5 +154,82 @@ namespace JCE.Domains.Repositories
         /// <param name="predicate">查询条件</param>
         /// <returns></returns>
         Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        /// <returns></returns>
+        Task<bool> ExistsAsync(params TKey[] ids);
+
+        /// <summary>
+        /// 获取实体个数
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        int Count(Expression<Func<TEntity, bool>> predicate = null);
+
+        /// <summary>
+        /// 获取实体个数
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate = null);
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        List<TEntity> Query(IQueryBase<TEntity> query);
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        Task<List<TEntity>> QueryAsync(IQueryBase<TEntity> query);
+
+        /// <summary>
+        /// 查询 - 返回未跟踪的实体
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        List<TEntity> QueryAsNoTracking(IQueryBase<TEntity> query);
+
+        /// <summary>
+        /// 查询 - 返回未跟踪的实体
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        Task<List<TEntity>> QueryAsNoTrackingAsync(IQueryBase<TEntity> query);
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        PagerList<TEntity> PagerQuery(IQueryBase<TEntity> query);
+        
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        Task<PagerList<TEntity>> PagerQueryAsync(IQueryBase<TEntity> query);
+
+        /// <summary>
+        /// 分页查询 - 返回未跟踪的实体
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        PagerList<TEntity> PagerQueryAsNoTracking(IQueryBase<TEntity> query);
+
+        /// <summary>
+        /// 分页查询 - 返回未跟踪的实体
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        Task<PagerList<TEntity>> PagerQueryAsNoTrackingAsync(IQueryBase<TEntity> query);
     }
 }

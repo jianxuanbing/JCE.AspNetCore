@@ -155,14 +155,14 @@ namespace JCE.Utils.Helpers
         }
         #endregion
 
-        #region GetByInterface(获取实现了接口的所有具体类型)
+        #region GetTypesByInterface(获取实现了接口的所有具体类型)
         /// <summary>
         /// 获取实现了接口的所有具体类型
         /// </summary>
         /// <typeparam name="TInterface">接口类型</typeparam>
         /// <param name="assembly">在该程序集中查找</param>
         /// <returns></returns>
-        public static List<TInterface> GetByInterface<TInterface>(Assembly assembly)
+        public static List<TInterface> GetTypesByInterface<TInterface>(Assembly assembly)
         {
             var typeInterface = typeof(TInterface);
             return
