@@ -4,8 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using JCE.Datas.EntityFramework.Internal;
+using JCE.Datas.UnitOfWorks;
 using JCE.Domains.Entities;
 using JCE.Domains.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace JCE.Datas.EntityFramework.Core
 {
@@ -16,10 +19,36 @@ namespace JCE.Datas.EntityFramework.Core
     /// <typeparam name="TKey">实体标识类型</typeparam>
     public abstract class RepositoryBase<TEntity,TKey>:IRepository<TEntity,TKey> where TEntity:class,IAggregateRoot<TEntity,TKey>
     {
-        
+        /// <summary>
+        /// 数据上下文包装器
+        /// </summary>
+        private readonly DbContextWrapper<TEntity, TKey> _wrapper;
+
+        /// <summary>
+        /// 工作单元
+        /// </summary>
+        protected UnitOfWorkBase UnitOfWork { get; }
+
+        /// <summary>
+        /// 实体集
+        /// </summary>
+        protected DbSet<TEntity> Set { get; }
+
+        /// <summary>
+        /// 初始化一个<see cref="RepositoryBase{TEntity,TKey}"/>类型的实例
+        /// </summary>
+        /// <param name="unitOfWork">工作单元</param>
+        protected RepositoryBase(IUnitOfWork unitOfWork)
+        {
+            _wrapper=new DbContextWrapper<TEntity, TKey>(unitOfWork);
+            UnitOfWork = _wrapper.UnitOfWork;
+            Set = _wrapper.Set;
+        }
+
+
         public IQueryable<TEntity> FindAsNoTracking()
         {
-            throw new NotImplementedException();
+            return Set.AsNoTracking();
         }
 
         public IQueryable<TEntity> Find()
