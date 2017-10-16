@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Log\**" />
+    <Content Remove="Log\**" />
+    <EmbeddedResource Remove="Log\**" />
+    <None Remove="Log\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -18,12 +25,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\JCE.Logs.Exceptionless\JCE.Logs.Exceptionless.csproj" />
+    <ProjectReference Include="..\..\src\JCE.Logs.Log4Net\JCE.Logs.Log4Net.csproj" />
     <ProjectReference Include="..\..\src\JCE.Logs.NLog\JCE.Logs.NLog.csproj" />
     <ProjectReference Include="..\..\src\JCE.Utils\JCE.Utils.csproj" />
     <ProjectReference Include="..\..\src\JCE\JCE.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

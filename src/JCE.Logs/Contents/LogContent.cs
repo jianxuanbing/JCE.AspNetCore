@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using JCE.Logs.Abstractions;
+using JCE.Logs.Properties;
 using JCE.Utils;
 using JCE.Utils.Exceptions;
 
@@ -12,7 +13,7 @@ namespace JCE.Logs.Contents
     /// </summary>
     public class LogContent : ILogContent, ICaption,ILogConvert
     {
-        #region Property(属性)
+        #region 属性
         /// <summary>
         /// 日志名称
         /// </summary>
@@ -145,7 +146,7 @@ namespace JCE.Logs.Contents
 
         #endregion
 
-        #region Constructor(构造函数)
+        #region 构造函数
         /// <summary>
         /// 初始化一个<see cref="LogContent"/>类型的实例
         /// </summary>

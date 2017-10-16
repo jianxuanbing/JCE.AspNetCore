@@ -14,7 +14,7 @@ namespace JCE.Logs.Core
     /// </summary>
     public class LogContext : ILogContext
     {
-        #region Property(属性)
+        #region 属性
 
         /// <summary>
         /// 日志上下文信息
@@ -57,7 +57,7 @@ namespace JCE.Logs.Core
         public IContext Context { get; set; }
         #endregion
 
-        #region Constructor(构造函数)
+        #region 构造函数
         /// <summary>
         /// 初始化一个<see cref="LogContext"/>类型的实例
         /// </summary>

@@ -11,7 +11,7 @@ namespace JCE.Validations
     /// </summary>
     public class ValidationResultCollection : IEnumerable<ValidationResult>
     {
-        #region Property(属性)
+        #region 属性
         /// <summary>
         /// 验证结果
         /// </summary>
@@ -29,7 +29,7 @@ namespace JCE.Validations
 
         #endregion
 
-        #region Constructor(构造函数)
+        #region 构造函数
         /// <summary>
         /// 初始化一个<see cref="ValidationResultCollection"/>类型的实例
         /// </summary>

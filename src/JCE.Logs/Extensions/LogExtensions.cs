@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using JCE.Logs.Contents;
+using JCE.Logs.Properties;
 using JCE.Utils.Exceptions;
 
 namespace JCE.Logs.Extensions

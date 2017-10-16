@@ -12,7 +12,7 @@ namespace JCE.GlobalConfigs
     /// </summary>
     public class ConfigManager
     {
-        #region Property(属性)
+        #region 属性
 
         /// <summary>
         /// 框架配置
@@ -63,7 +63,7 @@ namespace JCE.GlobalConfigs
 
         #endregion
 
-        #region Constructor(构造函数)
+        #region 构造函数
 
         /// <summary>
         /// 静态构造函数

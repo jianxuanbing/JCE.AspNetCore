@@ -17,7 +17,7 @@ namespace JCE.Utils.Helpers
     /// </summary>
     public static class Web
     {
-        #region Property(属性)
+        #region 属性
 
         /// <summary>
         /// Http上下文访问器

@@ -2,6 +2,7 @@
 using JCE.Logs.Contents;
 using System;
 using System.Text;
+using JCE.Logs.Properties;
 
 namespace JCE.Logs.Formats
 {

@@ -16,7 +16,7 @@ namespace JCE.Logs.Core
     /// <typeparam name="TContent">日志内容类型</typeparam>
     public abstract class LogBase<TContent> : ILog where TContent : class, ILogContent
     {
-        #region Property(属性)
+        #region 属性
         /// <summary>
         /// 日志内容
         /// </summary>
@@ -53,7 +53,7 @@ namespace JCE.Logs.Core
         public bool IsTraceEnabled => Provider.IsTraceEnabled;
         #endregion
 
-        #region Constructor(构造函数)
+        #region 构造函数
 
         /// <summary>
         /// 初始化一个<see cref="LogBase{TContent}"/>类型的实例

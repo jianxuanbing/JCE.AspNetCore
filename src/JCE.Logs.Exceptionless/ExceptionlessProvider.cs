@@ -16,7 +16,7 @@ namespace JCE.Logs.Exceptionless
     /// </summary>
     public class ExceptionlessProvider : ILogProvider
     {
-        #region Property(属性)
+        #region 属性
 
         /// <summary>
         /// 客户端
