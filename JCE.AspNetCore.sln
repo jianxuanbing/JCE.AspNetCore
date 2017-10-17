@@ -25,7 +25,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-src", "01-src", "{B30136
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-sample", "02-sample", "{E20E7072-8DC7-4D7E-9701-1285D0D5AA20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JCE.Datas.EntityFramework", "src\JCE.Datas.EntityFramework\JCE.Datas.EntityFramework.csproj", "{764DE363-78B6-4CEF-936D-CC2ADC92E803}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JCE.Datas.EntityFramework", "src\JCE.Datas.EntityFramework\JCE.Datas.EntityFramework.csproj", "{764DE363-78B6-4CEF-936D-CC2ADC92E803}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JCE.Datas.EntityFramework.SqlServer", "src\JCE.Datas.EntityFramework.SqlServer\JCE.Datas.EntityFramework.SqlServer.csproj", "{3F3C760A-54F2-454B-A62C-D05DE3137BD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JCE.Datas.EntityFramework.MySql", "src\JCE.Datas.EntityFramework.MySql\JCE.Datas.EntityFramework.MySql.csproj", "{2907537B-700E-4795-88E4-60F5EDFBC163}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +77,14 @@ Global
 		{764DE363-78B6-4CEF-936D-CC2ADC92E803}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{764DE363-78B6-4CEF-936D-CC2ADC92E803}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{764DE363-78B6-4CEF-936D-CC2ADC92E803}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F3C760A-54F2-454B-A62C-D05DE3137BD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F3C760A-54F2-454B-A62C-D05DE3137BD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F3C760A-54F2-454B-A62C-D05DE3137BD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F3C760A-54F2-454B-A62C-D05DE3137BD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2907537B-700E-4795-88E4-60F5EDFBC163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2907537B-700E-4795-88E4-60F5EDFBC163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2907537B-700E-4795-88E4-60F5EDFBC163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2907537B-700E-4795-88E4-60F5EDFBC163}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +100,8 @@ Global
 		{AA33FE2B-C23A-4761-892C-80AB642A59E7} = {B301363A-4646-4BC6-B4DE-7129A73525E4}
 		{5AE13FC3-7C66-42E4-869C-E8E3BCA7E7B1} = {E20E7072-8DC7-4D7E-9701-1285D0D5AA20}
 		{764DE363-78B6-4CEF-936D-CC2ADC92E803} = {B301363A-4646-4BC6-B4DE-7129A73525E4}
+		{3F3C760A-54F2-454B-A62C-D05DE3137BD1} = {B301363A-4646-4BC6-B4DE-7129A73525E4}
+		{2907537B-700E-4795-88E4-60F5EDFBC163} = {B301363A-4646-4BC6-B4DE-7129A73525E4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C380A49E-1EFF-447A-B6A2-F1AC71FCBABE}

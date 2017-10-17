@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using JCE.Contexts;
 using JCE.Datas.UnitOfWorks;
+using JCE.Domains.Entities;
 using JCE.Domains.Entities.Auditing;
 using JCE.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -234,6 +235,24 @@ namespace JCE.Datas.EntityFramework.Core
         {
             SaveChangesBefore();
             return base.SaveChangesAsync(cancellationToken);
+        }
+
+        #endregion
+
+        #region InitVersion(初始化版本号)
+
+        /// <summary>
+        /// 初始化版本号
+        /// </summary>
+        /// <param name="entry">输入实体</param>
+        protected void InitVersion(EntityEntry entry)
+        {
+            var entity = entry.Entity as IAggregateRoot;
+            if (entity==null)
+            {
+                return;
+            }
+            entity.Version = Encoding.UTF8.GetBytes(Guid.NewGuid().ToString());
         }
 
         #endregion
