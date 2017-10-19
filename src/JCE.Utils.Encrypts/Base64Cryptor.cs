@@ -8,7 +8,7 @@ namespace JCE.Utils.Encrypts
     /// <summary>
     /// Base64 加密
     /// </summary>
-    public class Base64Crypto
+    public class Base64Cryptor
     {
         #region Encrypt(加密)
 

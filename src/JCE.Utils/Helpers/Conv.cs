@@ -9,7 +9,7 @@ namespace JCE.Utils.Helpers
     /// <summary>
     /// 类型转换 操作
     /// </summary>
-    public static class Convert
+    public static class Conv
     {
         #region ToInt(转换为int)
         /// <summary>

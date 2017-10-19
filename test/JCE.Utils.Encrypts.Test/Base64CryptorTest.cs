@@ -6,16 +6,16 @@ using Xunit.Abstractions;
 
 namespace JCE.Utils.Encrypts.Test
 {
-    public class Base64CryptoTest:TestBase
+    public class Base64CryptorTest:TestBase
     {
-        public Base64CryptoTest(ITestOutputHelper output) : base(output)
+        public Base64CryptorTest(ITestOutputHelper output) : base(output)
         {
         }
 
         [Fact]
         public void Test_Encrypt()
         {
-            var result = Base64Crypto.Encrypt("JCE");
+            var result = Base64Cryptor.Encrypt("JCE");
             Output.WriteLine(result);
             Assert.Equal("SkNF",result);
         }
@@ -23,7 +23,7 @@ namespace JCE.Utils.Encrypts.Test
         [Fact]
         public void Test_Decrypt()
         {
-            var result = Base64Crypto.Decrypt("SkNF");
+            var result = Base64Cryptor.Decrypt("SkNF");
             Output.WriteLine(result);
             Assert.Equal("JCE", result);
         }

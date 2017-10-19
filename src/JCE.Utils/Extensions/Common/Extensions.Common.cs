@@ -42,7 +42,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static TResult Value<TResult>(this System.Enum instance)
         {
-            return JCE.Utils.Helpers.Convert.To<TResult>(Value(instance));
+            return JCE.Utils.Helpers.Conv.To<TResult>(Value(instance));
         }
         #endregion
 

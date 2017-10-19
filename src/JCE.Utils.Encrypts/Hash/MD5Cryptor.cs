@@ -10,7 +10,7 @@ namespace JCE.Utils.Encrypts.Hash
     /// MD5 加密
     /// </summary>
     // ReSharper disable once InconsistentNaming
-    public class MD5Crypto
+    public class MD5Cryptor
     {
         #region Encrypt16(16位加密)
 

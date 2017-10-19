@@ -30,7 +30,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static bool ToBool(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToBool(obj);
+            return JCE.Utils.Helpers.Conv.ToBool(obj);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static bool? ToBoolOrNull(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToBoolOrNull(obj);
+            return JCE.Utils.Helpers.Conv.ToBoolOrNull(obj);
         }
         #endregion
 
@@ -52,7 +52,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static int ToInt(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToInt(obj);
+            return JCE.Utils.Helpers.Conv.ToInt(obj);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static int? ToIntOrNull(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToIntOrNull(obj);
+            return JCE.Utils.Helpers.Conv.ToIntOrNull(obj);
         }
         #endregion
 
@@ -74,7 +74,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static long ToLong(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToLong(obj);
+            return JCE.Utils.Helpers.Conv.ToLong(obj);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static long? ToLongOrNull(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToLongOrNull(obj);
+            return JCE.Utils.Helpers.Conv.ToLongOrNull(obj);
         }
         #endregion
 
@@ -97,7 +97,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static double ToDouble(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToDouble(obj);
+            return JCE.Utils.Helpers.Conv.ToDouble(obj);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static double? ToDoubleOrNull(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToDoubleOrNull(obj);
+            return JCE.Utils.Helpers.Conv.ToDoubleOrNull(obj);
         }
         #endregion
 
@@ -120,7 +120,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static decimal ToDecimal(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToDecimal(obj);
+            return JCE.Utils.Helpers.Conv.ToDecimal(obj);
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static decimal? ToDecimalOrNull(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToDecimalOrNull(obj);
+            return JCE.Utils.Helpers.Conv.ToDecimalOrNull(obj);
         }
         #endregion
 
@@ -142,7 +142,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static DateTime ToDate(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToDate(obj);
+            return JCE.Utils.Helpers.Conv.ToDate(obj);
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static DateTime? ToDateOrNull(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToDateOrNull(obj);
+            return JCE.Utils.Helpers.Conv.ToDateOrNull(obj);
         }
         #endregion
 
@@ -165,7 +165,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static Guid ToGuid(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToGuid(obj);
+            return JCE.Utils.Helpers.Conv.ToGuid(obj);
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static Guid? ToGuidOrNull(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToGuidOrNull(obj);
+            return JCE.Utils.Helpers.Conv.ToGuidOrNull(obj);
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace JCE.Utils.Extensions
         /// <returns></returns>
         public static List<Guid> ToGuidList(this string obj)
         {
-            return JCE.Utils.Helpers.Convert.ToGuidList(obj);
+            return JCE.Utils.Helpers.Conv.ToGuidList(obj);
         }
 
         /// <summary>

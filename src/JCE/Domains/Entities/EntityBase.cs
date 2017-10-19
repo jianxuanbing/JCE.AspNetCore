@@ -119,7 +119,7 @@ namespace JCE.Domains.Entities
         /// <returns></returns>
         protected virtual TKey CreateId()
         {
-            return JCE.Utils.Helpers.Convert.To<TKey>(Guid.NewGuid());
+            return JCE.Utils.Helpers.Conv.To<TKey>(Guid.NewGuid());
         }
 
         /// <summary>

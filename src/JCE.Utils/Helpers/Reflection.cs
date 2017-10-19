@@ -186,7 +186,7 @@ namespace JCE.Utils.Helpers
         /// <returns></returns>
         public static T CreateInstance<T>(Type type, params object[] parameters)
         {
-            return JCE.Utils.Helpers.Convert.To<T>(Activator.CreateInstance(type, parameters));
+            return JCE.Utils.Helpers.Conv.To<T>(Activator.CreateInstance(type, parameters));
         }
 
         /// <summary>

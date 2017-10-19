@@ -197,7 +197,7 @@ namespace JCE.Domains.Entities
                 JCE.Utils.Helpers.Reflection.GetDisplayNameOrDescription(
                     (PropertyInfo) JCE.Utils.Helpers.Lambda.GetMember(expression));
             var value = JCE.Utils.Helpers.Lambda.GetValue(expression);
-            AddChange(name, description, JCE.Utils.Helpers.Convert.To<TValue>(value), newValue);
+            AddChange(name, description, JCE.Utils.Helpers.Conv.To<TValue>(value), newValue);
         }
 
         /// <summary>

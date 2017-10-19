@@ -81,7 +81,7 @@ namespace JCE.Domains.Entities
         /// <returns></returns>
         public virtual TValueObject Clone()
         {
-            return JCE.Utils.Helpers.Convert.To<TValueObject>(MemberwiseClone());
+            return JCE.Utils.Helpers.Conv.To<TValueObject>(MemberwiseClone());
         }
     }
 }

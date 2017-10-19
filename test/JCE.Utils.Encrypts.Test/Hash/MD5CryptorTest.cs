@@ -7,16 +7,16 @@ using Xunit.Abstractions;
 
 namespace JCE.Utils.Encrypts.Test.Hash
 {
-    public class MD5CryptoTest:TestBase
+    public class MD5CryptorTest:TestBase
     {
-        public MD5CryptoTest(ITestOutputHelper output) : base(output)
+        public MD5CryptorTest(ITestOutputHelper output) : base(output)
         {
         }
 
         [Fact]
         public void Test_Encrypt16()
         {
-            var result = MD5Crypto.Encrypt16("JCE");
+            var result = MD5Cryptor.Encrypt16("JCE");
             Output.WriteLine(result);
             Assert.Equal("94BA44A879194C4B", result);
         }
@@ -24,7 +24,7 @@ namespace JCE.Utils.Encrypts.Test.Hash
         [Fact]
         public void Test_Encrypt32()
         {
-            var result = MD5Crypto.Encrypt32("JCE");
+            var result = MD5Cryptor.Encrypt32("JCE");
             Output.WriteLine(result);
             Assert.Equal("B89293A694BA44A879194C4BF027AB6B",result);
         }
@@ -32,7 +32,7 @@ namespace JCE.Utils.Encrypts.Test.Hash
         [Fact]
         public void Test_Encrypt64()
         {
-            var result = MD5Crypto.Encrypt64("JCE");
+            var result = MD5Cryptor.Encrypt64("JCE");
             Output.WriteLine(result);
             Assert.Equal("uJKTppS6RKh5GUxL8Ceraw==",result);
         }

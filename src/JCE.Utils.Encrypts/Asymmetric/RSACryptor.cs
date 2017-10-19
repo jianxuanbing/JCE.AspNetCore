@@ -7,7 +7,7 @@ namespace JCE.Utils.Encrypts.Asymmetric
     /// <summary>
     /// RSA 加密
     /// </summary>
-    public class RSACrypto
+    public class RSACryptor
     {
     }
 }
