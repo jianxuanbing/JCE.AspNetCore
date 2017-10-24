@@ -232,6 +232,36 @@ namespace JCE.Utils.Helpers
         }
         #endregion
 
+        #region GetAttribute(获取特性信息)
+
+        /// <summary>
+        /// 获取特性信息
+        /// </summary>
+        /// <typeparam name="TAttribute">泛型特性</typeparam>
+        /// <param name="memberInfo">元数据</param>
+        /// <returns></returns>
+        public static TAttribute GetAttribute<TAttribute>(MemberInfo memberInfo) where TAttribute : Attribute
+        {
+            return (TAttribute)memberInfo.GetCustomAttributes(typeof(TAttribute), false).FirstOrDefault();
+        }
+
+        #endregion
+
+        #region GetAttributes(获取特性信息数据)
+
+        /// <summary>
+        /// 获取特性信息数组
+        /// </summary>
+        /// <typeparam name="TAttribute">泛型特性</typeparam>
+        /// <param name="memberInfo">元数据</param>
+        /// <returns></returns>
+        public static TAttribute[] GetAttributes<TAttribute>(MemberInfo memberInfo) where TAttribute : Attribute
+        {
+            return Array.ConvertAll(memberInfo.GetCustomAttributes(typeof(TAttribute), false), x => (TAttribute)x);
+        }
+
+        #endregion
+
         #region IsBool(是否布尔类型)
         /// <summary>
         /// 是否布尔类型
@@ -492,6 +522,7 @@ namespace JCE.Utils.Helpers
                    || typeDefinition == typeof(IList<>)
                    || typeDefinition == typeof(List<>);
         }
-        #endregion        
+        #endregion
+        
     }
 }
