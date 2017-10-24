@@ -8,7 +8,7 @@ using Newtonsoft.Json.Serialization;
 namespace JCE.Utils.Json
 {
     /// <summary>
-    /// Json辅助操作类
+    /// Json操作辅助类
     /// </summary>
     public static class JsonUtil
     {
