@@ -97,6 +97,14 @@ namespace JCE.Utils.Webs.Clients
         TRequest JsonData<T>(T value);
 
         /// <summary>
+        /// 添加文件参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        /// <param name="filePath">文件路径</param>
+        /// <returns></returns>
+        TRequest FileData(string name, string filePath);
+
+        /// <summary>
         /// 请求失败回调函数
         /// </summary>
         /// <param name="action">执行失败的回调函数，参数为响应结果</param>

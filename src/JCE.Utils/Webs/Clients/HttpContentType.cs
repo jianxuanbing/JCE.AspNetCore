@@ -11,14 +11,19 @@ namespace JCE.Utils.Webs.Clients
     public enum HttpContentType
     {
         /// <summary>
-        /// application/x-www-form-urlencoded
+        /// Form格式：application/x-www-form-urlencoded
         /// </summary>
         [Description("application/x-www-form-urlencoded")]
         FormUrlEncoded,
         /// <summary>
-        /// application/json
+        /// JSON格式：application/json
         /// </summary>
         [Description("application/json")]
-        Json
+        Json,
+        /// <summary>
+        /// 表单文件上传：multipart/form-data
+        /// </summary>
+        [Description("multipart/form-data")]
+        FormData
     }
 }

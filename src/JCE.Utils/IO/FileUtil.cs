@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using JCE.Utils.Helpers;
 
 namespace JCE.Utils.IO
 {
@@ -136,6 +137,27 @@ namespace JCE.Utils.IO
                 sb.Append(b.ToString("X2"));
             }
             return sb.ToString();
+        }
+
+        #endregion
+
+        #region GetContentType(根据扩展名获取文件内容类型)
+        /// <summary>
+        /// 根据扩展名获取文件内容类型
+        /// </summary>
+        /// <param name="ext">扩展名</param>
+        /// <returns></returns>
+        public static string GetContentType(string ext)
+        {
+            string contentType = "";
+            var dict = Const.FileExtensionDict;
+            ext = ext.ToLower();
+            if (!ext.StartsWith("."))
+            {
+                ext = "." + ext;
+            }
+            dict.TryGetValue(ext, out contentType);
+            return contentType;
         }
 
         #endregion

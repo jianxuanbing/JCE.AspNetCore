@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using JCE.Utils.Extensions;
 using JCE.Utils.Helpers;
+using JCE.Utils.IO;
 using JCE.Utils.Json;
 
 namespace JCE.Utils.Webs.Clients
@@ -16,6 +19,8 @@ namespace JCE.Utils.Webs.Clients
     /// <typeparam name="TRequest">Http请求基类</typeparam>
     public abstract class HttpRequestBase<TRequest> where TRequest:IRequest<TRequest>
     {
+        #region 字段
+
         /// <summary>
         /// 请求地址
         /// </summary>
@@ -67,6 +72,25 @@ namespace JCE.Utils.Webs.Clients
         private Action<string, HttpStatusCode> _failStatusCodeAction;
 
         /// <summary>
+        /// 文件参数
+        /// </summary>
+        private List<FileParamter> _fileParamters;
+
+        /// <summary>
+        /// 编码格式
+        /// </summary>
+        private Encoding _encoding;
+
+        /// <summary>
+        /// 换行符
+        /// </summary>
+        private const string _lineBreak = "\r\n";
+
+        #endregion
+
+        #region 构造函数
+
+        /// <summary>
         /// 初始化一个<see cref="HttpRequestBase{TRequest}"/>类型的实例
         /// </summary>
         /// <param name="httpMethod">Http请求方法</param>
@@ -82,7 +106,13 @@ namespace JCE.Utils.Webs.Clients
             _cookieContainer = new CookieContainer();
             _timeSpan = new TimeSpan(0, 0, 30);
             _headers = new Dictionary<string, string>();
+            _fileParamters=new List<FileParamter>();
+            _encoding=Encoding.UTF8;
         }
+
+        #endregion
+
+        #region ContentType(设置内容类型)
 
         /// <summary>
         /// 设置内容类型
@@ -111,8 +141,12 @@ namespace JCE.Utils.Webs.Clients
         /// <returns></returns>
         private TRequest This()
         {
-            return (TRequest) ((object) this);
+            return (TRequest)((object)this);
         }
+
+        #endregion
+
+        #region Cookie(设置Cookie)
 
         /// <summary>
         /// 设置Cookie
@@ -150,7 +184,7 @@ namespace JCE.Utils.Webs.Clients
         public TRequest Cookie(string name, string value, string path = "/", string domain = null,
             DateTime? expiresDate = null)
         {
-            return Cookie(new Cookie(name, value, path, domain) {Expires = expiresDate ?? DateTime.Now.AddYears(1)});
+            return Cookie(new Cookie(name, value, path, domain) { Expires = expiresDate ?? DateTime.Now.AddYears(1) });
         }
 
         /// <summary>
@@ -160,9 +194,13 @@ namespace JCE.Utils.Webs.Clients
         /// <returns></returns>
         public TRequest Cookie(Cookie cookie)
         {
-            _cookieContainer.Add(new Uri(_url),cookie);
+            _cookieContainer.Add(new Uri(_url), cookie);
             return This();
         }
+
+        #endregion
+
+        #region Timeout(设置超时时间)
 
         /// <summary>
         /// 设置超时时间
@@ -171,9 +209,13 @@ namespace JCE.Utils.Webs.Clients
         /// <returns></returns>
         public TRequest Timeout(int timeout)
         {
-            _timeSpan=new TimeSpan(0,0,timeout);
+            _timeSpan = new TimeSpan(0, 0, timeout);
             return This();
         }
+
+        #endregion
+
+        #region Header(设置请求头)
 
         /// <summary>
         /// 设置请求头
@@ -184,9 +226,13 @@ namespace JCE.Utils.Webs.Clients
         /// <returns></returns>
         public TRequest Header<T>(string key, T value)
         {
-            _headers.Add(key,value.SafeString());
+            _headers.Add(key, value.SafeString());
             return This();
         }
+
+        #endregion
+
+        #region Data(添加参数)
 
         /// <summary>
         /// 添加参数
@@ -204,7 +250,7 @@ namespace JCE.Utils.Webs.Clients
             {
                 return This();
             }
-            _params.Add(key,data);
+            _params.Add(key, data);
             return This();
         }
 
@@ -220,6 +266,38 @@ namespace JCE.Utils.Webs.Clients
             _json = JsonUtil.ToJson(value);
             return This();
         }
+
+        /// <summary>
+        /// 添加文件参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        /// <param name="filePath">文件路径</param>
+        /// <returns></returns>
+        public TRequest FileData(string name, string filePath)
+        {
+            filePath.CheckFileExists(nameof(filePath));
+            var ext = Path.GetExtension(filePath);
+            var file = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            return FileData(name, file, "test.jpg", FileUtil.GetContentType(ext));
+        }
+
+        /// <summary>
+        /// 添加文件参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        /// <param name="fileStream">文件流</param>
+        /// <param name="fileName">文件名</param>
+        /// <param name="contentType">内容类型</param>
+        /// <returns></returns>
+        public TRequest FileData(string name, Stream fileStream, string fileName, string contentType)
+        {
+            _fileParamters.Add(new FileParamter(name,fileStream,fileName,contentType));
+            return This();
+        }
+
+        #endregion
+
+        #region OnFail(请求失败回调函数)
 
         /// <summary>
         /// 请求失败回调函数
@@ -243,6 +321,10 @@ namespace JCE.Utils.Webs.Clients
             return This();
         }
 
+        #endregion
+
+        #region Result(获取结果)
+
         /// <summary>
         /// 获取结果
         /// </summary>
@@ -254,10 +336,28 @@ namespace JCE.Utils.Webs.Clients
                 SendBefore();
                 var response = await SendAsync();
                 var result = await response.Content.ReadAsStringAsync();
-                SendAfter(result,response.StatusCode,GetContentType(response));
+                SendAfter(result, response.StatusCode, GetContentType(response));
                 return result;
             });
         }
+
+        /// <summary>
+        /// 获取结果
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> ResultAsync()
+        {
+            SendBefore();
+            var response = await SendAsync();
+            return await response.Content.ReadAsStringAsync().ContinueWith((task, state) =>
+            {
+                var result = task.Result;
+                SendAfter(result, response.StatusCode, state.SafeString());
+                return result;
+            }, GetContentType(response));
+        }
+
+        #endregion
 
         /// <summary>
         /// 获取内容类型
@@ -324,27 +424,17 @@ namespace JCE.Utils.Webs.Clients
         {            
         }
 
+        /// <summary>
+        /// 失败处理操作
+        /// </summary>
+        /// <param name="result">响应结果</param>
+        /// <param name="statusCode">状态码</param>
+        /// <param name="contentType">内容类型</param>
         protected virtual void FailHandler(string result, HttpStatusCode statusCode, string contentType)
         {
             _failAction?.Invoke(result);
             _failStatusCodeAction?.Invoke(result,statusCode);
-        }
-
-        /// <summary>
-        /// 获取结果
-        /// </summary>
-        /// <returns></returns>
-        public async Task<string> ResultAsync()
-        {
-            SendBefore();
-            var response = await SendAsync();
-            return await response.Content.ReadAsStringAsync().ContinueWith((task, state) =>
-            {
-                var result = task.Result;
-                SendAfter(result, response.StatusCode, state.SafeString());
-                return result;
-            }, GetContentType(response));
-        }
+        }        
 
         /// <summary>
         /// 创建请求客户端
@@ -369,7 +459,7 @@ namespace JCE.Utils.Webs.Clients
             };
             foreach (var header in _headers)
             {
-                message.Headers.Add(header.Key,header.Value);
+                message.Headers.TryAddWithoutValidation(header.Key,header.Value);
             }
             return message;
         }
@@ -379,7 +469,7 @@ namespace JCE.Utils.Webs.Clients
         /// </summary>
         /// <returns></returns>
         private HttpContent CreateContent()
-        {
+        {            
             var contentType = _contentType.SafeString().ToLower();
             switch (contentType)
             {
@@ -387,9 +477,11 @@ namespace JCE.Utils.Webs.Clients
                     return new FormUrlEncodedContent(_params);
                 case "application/json":
                     return CreateJsonContent();
+                case "multipart/form-data":
+                    return CreateFileContent();
             }
             throw new NotImplementedException("未实现该ContentType");
-        }
+        }        
 
         /// <summary>
         /// 创建json内容类型
@@ -402,6 +494,109 @@ namespace JCE.Utils.Webs.Clients
                 _json = JsonUtil.ToJson(_params);
             }
             return new StringContent(_json, Encoding.UTF8, "application/json");
+        }
+
+        /// <summary>
+        /// 创建Stream内容类型
+        /// </summary>
+        /// <returns></returns>
+        private HttpContent CreateFileContent()
+        {
+            string boundary = GetBoundary();
+            var memory=new MemoryStream();
+            WriteMultipartFormData(memory, boundary);
+            memory.Seek(0, SeekOrigin.Begin);//设置指针到起点
+            // 设置请求头
+            _headers.Remove("Content-Type");
+            Header("Content-Type", $"multipart/form-data;boundary={boundary}");
+            return new StreamContent(memory);
+        }
+
+        /// <summary>
+        /// 写入表单的内容值【非文件参数+文件头+文件参数(内部完成)+请求结束符】
+        /// </summary>
+        /// <param name="memory">流</param>
+        /// <param name="boundary">请求分隔符</param>
+        private void WriteMultipartFormData(Stream memory, string boundary)
+        {
+            foreach (var param in _params)
+            {
+                WriteStream(memory, GetMultipartFormData(param.Key, param.Value, boundary));
+            }
+            foreach (var param in _fileParamters)
+            {
+                // 文件头
+                WriteStream(memory,GetMultipartFileHeader(param,boundary));
+                // 文件内容
+                param.Writer(memory);
+                // 文件结尾
+                WriteStream(memory,_lineBreak);
+            }
+            // 写入整个请求的底部信息
+            WriteStream(memory,GetMultipartFooter(boundary));
+        }
+
+        /// <summary>
+        /// 写入表单的内容值（文件头）
+        /// </summary>
+        /// <param name="file">文件参数</param>
+        /// <param name="boundary">请求分割界限</param>
+        /// <returns></returns>
+        private string GetMultipartFileHeader(FileParamter file, string boundary)
+        {
+            var contentType = file.ContentType ?? "application/octet-stream";
+            return $"--{boundary}{_lineBreak}Content-Disposition: form-data; name=\"{file.Name}\"; filename=\"{file.FileName}\"{_lineBreak}Content-Type: {contentType}{_lineBreak}{_lineBreak}";
+        }
+
+        /// <summary>
+        /// 写入表单的内容值（非文件参数）
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <param name="value">值</param>
+        /// <param name="boundary">请求分割界限</param>
+        /// <returns></returns>
+        private string GetMultipartFormData(string key, string value, string boundary)
+        {
+            return
+                $"--{boundary}{_lineBreak}Content-Disposition: form-data; name=\"{key}\"{_lineBreak}{_lineBreak}{value}{_lineBreak}";
+        }
+
+        /// <summary>
+        /// 写入表单的内容值（请求结束符）
+        /// </summary>
+        /// <param name="boundary">请求分割界限</param>
+        /// <returns></returns>
+        private string GetMultipartFooter(string boundary)
+        {
+            return $"--{boundary}--{_lineBreak}";
+        }
+
+        /// <summary>
+        /// 写入流，将数据写入流当中
+        /// </summary>
+        /// <param name="stream">流</param>
+        /// <param name="data">数据</param>
+        private void WriteStream(Stream stream, string data)
+        {
+            var bytes = _encoding.GetBytes(data);
+            stream.Write(bytes, 0, bytes.Length);
+        }
+
+        /// <summary>
+        /// 获取请求分割界限
+        /// </summary>
+        /// <returns></returns>
+        private string GetBoundary()
+        {
+            string pattern = "abcdefghijklmnopqrstuvwxyz0123456789";
+            StringBuilder boundaryBuilder = new StringBuilder();
+            Random rnd = new Random();
+            for (int i = 0; i < 10; i++)
+            {
+                var index = rnd.Next(pattern.Length);
+                boundaryBuilder.Append(pattern[index]);
+            }
+            return $"-------{boundaryBuilder}";
         }
     }
 }
