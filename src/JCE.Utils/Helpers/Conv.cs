@@ -345,6 +345,10 @@ namespace JCE.Utils.Helpers
                 {
                     return (T)(object)new Guid(input.ToString());
                 }
+                if (type.IsEnum)
+                {
+                    return Enum.Parse<T>(input);
+                }
                 if (input is IConvertible)
                 {
                     return (T)System.Convert.ChangeType(input, type);

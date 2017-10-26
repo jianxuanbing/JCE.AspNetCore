@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using JCE.Utils.Extensions;
+using JCE.Utils.Helpers;
 using JCE.Utils.Json;
 
 namespace JCE.Utils.Webs.Clients
@@ -239,6 +241,167 @@ namespace JCE.Utils.Webs.Clients
         {
             _failStatusCodeAction = action;
             return This();
+        }
+
+        /// <summary>
+        /// 获取结果
+        /// </summary>
+        /// <returns></returns>
+        public string Result()
+        {
+            return Async.Run(async () =>
+            {
+                SendBefore();
+                var response = await SendAsync();
+                var result = await response.Content.ReadAsStringAsync();
+                SendAfter(result,response.StatusCode,GetContentType(response));
+                return result;
+            });
+        }
+
+        /// <summary>
+        /// 获取内容类型
+        /// </summary>
+        /// <param name="response">响应消息</param>
+        /// <returns></returns>
+        private string GetContentType(HttpResponseMessage response)
+        {
+            return response?.Content?.Headers?.ContentType == null
+                ? string.Empty
+                : response.Content.Headers.ContentType.MediaType;
+        }
+
+        /// <summary>
+        /// 发送前操作
+        /// </summary>
+        protected virtual void SendBefore()
+        {
+        }
+
+        /// <summary>
+        /// 发送请求
+        /// </summary>
+        /// <returns></returns>
+        private async Task<HttpResponseMessage> SendAsync()
+        {
+            HttpClient client = CreateHttpClient();
+            return await client.SendAsync(CreateRequestMessage());
+        }
+
+        /// <summary>
+        /// 发送后操作
+        /// </summary>
+        /// <param name="result">响应结果</param>
+        /// <param name="statusCode">状态码</param>
+        /// <param name="contentType">内容类型</param>
+        protected virtual void SendAfter(string result,HttpStatusCode statusCode,string contentType)
+        {
+            if (IsSuccess(statusCode))
+            {
+                SuccessHandler(result,statusCode,contentType);
+                return;
+            }
+            FailHandler(result,statusCode,contentType);
+        }
+
+        /// <summary>
+        /// 发送请求是否成功
+        /// </summary>
+        /// <param name="statusCode"></param>
+        /// <returns></returns>
+        protected virtual bool IsSuccess(HttpStatusCode statusCode)
+        {
+            return statusCode.Value() < 400;
+        }
+
+        /// <summary>
+        /// 成功处理操作
+        /// </summary>
+        /// <param name="result">响应结果</param>
+        /// <param name="statusCode">状态码</param>
+        /// <param name="contentType">内容类型</param>
+        protected virtual void SuccessHandler(string result, HttpStatusCode statusCode, string contentType)
+        {            
+        }
+
+        protected virtual void FailHandler(string result, HttpStatusCode statusCode, string contentType)
+        {
+            _failAction?.Invoke(result);
+            _failStatusCodeAction?.Invoke(result,statusCode);
+        }
+
+        /// <summary>
+        /// 获取结果
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> ResultAsync()
+        {
+            SendBefore();
+            var response = await SendAsync();
+            return await response.Content.ReadAsStringAsync().ContinueWith((task, state) =>
+            {
+                var result = task.Result;
+                SendAfter(result, response.StatusCode, state.SafeString());
+                return result;
+            }, GetContentType(response));
+        }
+
+        /// <summary>
+        /// 创建请求客户端
+        /// </summary>
+        /// <returns></returns>
+        private HttpClient CreateHttpClient()
+        {
+            return new HttpClient(new HttpClientHandler(){CookieContainer = _cookieContainer}){Timeout = _timeSpan};
+        }
+
+        /// <summary>
+        /// 创建请求消息
+        /// </summary>
+        /// <returns></returns>
+        private HttpRequestMessage CreateRequestMessage()
+        {
+            var message=new HttpRequestMessage()
+            {
+                Method = _httpMethod,
+                RequestUri = new Uri(_url),
+                Content = CreateContent()
+            };
+            foreach (var header in _headers)
+            {
+                message.Headers.Add(header.Key,header.Value);
+            }
+            return message;
+        }
+
+        /// <summary>
+        /// 创建请求内容
+        /// </summary>
+        /// <returns></returns>
+        private HttpContent CreateContent()
+        {
+            var contentType = _contentType.SafeString().ToLower();
+            switch (contentType)
+            {
+                case "application/x-www-form-urlencoded":
+                    return new FormUrlEncodedContent(_params);
+                case "application/json":
+                    return CreateJsonContent();
+            }
+            throw new NotImplementedException("未实现该ContentType");
+        }
+
+        /// <summary>
+        /// 创建json内容类型
+        /// </summary>
+        /// <returns></returns>
+        private HttpContent CreateJsonContent()
+        {
+            if (string.IsNullOrWhiteSpace(_json))
+            {
+                _json = JsonUtil.ToJson(_params);
+            }
+            return new StringContent(_json, Encoding.UTF8, "application/json");
         }
     }
 }
