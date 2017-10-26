@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using JCE.Utils.Extensions;
 using JCE.Utils.Helpers;
@@ -277,8 +279,9 @@ namespace JCE.Utils.Webs.Clients
         {
             filePath.CheckFileExists(nameof(filePath));
             var ext = Path.GetExtension(filePath);
+            var fileName=Path.GetFileName(filePath);
             var file = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            return FileData(name, file, "test.jpg", FileUtil.GetContentType(ext));
+            return FileData(name, file, fileName, FileUtil.GetContentType(ext));
         }
 
         /// <summary>
@@ -503,13 +506,13 @@ namespace JCE.Utils.Webs.Clients
         private HttpContent CreateFileContent()
         {
             string boundary = GetBoundary();
-            var memory=new MemoryStream();
+            var memory = new MemoryStream();
             WriteMultipartFormData(memory, boundary);
             memory.Seek(0, SeekOrigin.Begin);//设置指针到起点
-            // 设置请求头
-            _headers.Remove("Content-Type");
-            Header("Content-Type", $"multipart/form-data;boundary={boundary}");
-            return new StreamContent(memory);
+            var content=new StreamContent(memory);
+            content.Headers.Remove("Content-Type");
+            content.Headers.TryAddWithoutValidation("Content-Type", $"multipart/form-data;boundary={boundary}");            
+            return content;
         }
 
         /// <summary>
