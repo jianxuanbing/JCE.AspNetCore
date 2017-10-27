@@ -27,6 +27,10 @@ namespace JCE.Validations
         /// </summary>
         public int Count => _results.Count;
 
+        /// <summary>
+        /// 成功验证结果集合
+        /// </summary>
+        public static readonly ValidationResultCollection Success=new ValidationResultCollection();
         #endregion
 
         #region 构造函数

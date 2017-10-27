@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.2.0-preview8" />
-    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.2.0-preview8" />
-    <PackageReference Include="Autofac" Version="4.6.1" />
+    <PackageReference Include="AspectCore.Extensions.AspectScope" Version="0.2.1" />
+    <PackageReference Include="AspectCore.Extensions.Autofac" Version="0.2.1" />
+    <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
