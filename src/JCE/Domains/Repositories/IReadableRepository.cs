@@ -90,21 +90,21 @@ namespace JCE.Domains.Repositories
         /// </summary>
         /// <param name="ids">实体标识集合</param>
         /// <returns></returns>
-        List<TEntity> FindByIdsAsync(params TKey[] ids);
+        Task<List<TEntity>> FindByIdsAsync(params TKey[] ids);
 
         /// <summary>
         /// 查找实体集合
         /// </summary>
         /// <param name="ids">实体标识集合</param>
         /// <returns></returns>
-        List<TEntity> FindByIdsAsync(IEnumerable<TKey> ids);
+        Task<List<TEntity>> FindByIdsAsync(IEnumerable<TKey> ids);
 
         /// <summary>
         /// 查找实体集合
         /// </summary>
         /// <param name="ids">逗号分隔的Id列表，范例："1,2"</param>
         /// <returns></returns>
-        List<TEntity> FindByIdsAsync(string ids);
+        Task<List<TEntity>> FindByIdsAsync(string ids);
 
         /// <summary>
         /// 获取单个实体

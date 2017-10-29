@@ -27,7 +27,7 @@ namespace JCE.Applications
         /// 获取全部
         /// </summary>
         /// <returns></returns>
-        Task<TDto> GetAllAsync();
+        Task<List<TDto>> GetAllAsync();
 
         /// <summary>
         /// 通过编号获取

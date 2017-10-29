@@ -91,17 +91,17 @@ namespace JCE.Datas.EntityFramework.Core
             throw new NotImplementedException();
         }
 
-        public List<TEntity> FindByIdsAsync(params TKey[] ids)
+        public Task<List<TEntity>> FindByIdsAsync(params TKey[] ids)
         {
             throw new NotImplementedException();
         }
 
-        public List<TEntity> FindByIdsAsync(IEnumerable<TKey> ids)
+        public Task<List<TEntity>> FindByIdsAsync(IEnumerable<TKey> ids)
         {
             throw new NotImplementedException();
         }
 
-        public List<TEntity> FindByIdsAsync(string ids)
+        public Task<List<TEntity>> FindByIdsAsync(string ids)
         {
             throw new NotImplementedException();
         }
@@ -261,7 +261,7 @@ namespace JCE.Datas.EntityFramework.Core
             throw new NotImplementedException();
         }
 
-        public void RemoveAsync(IEnumerable<TEntity> entities)
+        public Task RemoveAsync(IEnumerable<TEntity> entities)
         {
             throw new NotImplementedException();
         }
