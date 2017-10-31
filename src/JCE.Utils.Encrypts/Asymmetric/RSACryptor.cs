@@ -400,6 +400,8 @@ namespace JCE.Utils.Encrypts.Asymmetric
 
         #endregion
 
+        #region 辅助方法
+
         /// <summary>
         /// 根据私钥创建RSA实例
         /// </summary>
@@ -610,6 +612,6 @@ namespace JCE.Utils.Encrypts.Asymmetric
 
         #endregion
 
+        #endregion
     }
-
 }
