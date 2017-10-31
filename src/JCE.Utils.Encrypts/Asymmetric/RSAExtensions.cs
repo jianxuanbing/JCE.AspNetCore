@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using System.Xml;
 
 namespace JCE.Utils.Encrypts.Asymmetric
 {
@@ -36,6 +37,56 @@ namespace JCE.Utils.Encrypts.Asymmetric
             return string.Format(Const.PublicKeyFormat,
                 parameters.Modulus != null ? Convert.ToBase64String(parameters.Modulus) : null,
                 parameters.Exponent != null ? Convert.ToBase64String(parameters.Exponent) : null);
-        }        
+        }
+
+        /// <summary>
+        /// 从Xml字符串中获取RSA
+        /// </summary>
+        /// <param name="rsa">RSA实例</param>
+        /// <param name="xmlString">Xml字符串</param>
+        public static void FromExtXmlString(this RSA rsa, string xmlString)
+        {
+            RSAParameters parameters=new RSAParameters();
+            XmlDocument doc=new XmlDocument();
+            doc.LoadXml(xmlString);
+            if (doc.DocumentElement.Name.Equals("RSAKeyValue"))
+            {
+                foreach (XmlNode node in doc.DocumentElement.ChildNodes)
+                {
+                    switch (node.Name)
+                    {
+                        case "Modulus":
+                            parameters.Modulus = Convert.FromBase64String(node.InnerText);
+                            break;
+                        case "Exponent":
+                            parameters.Exponent = Convert.FromBase64String(node.InnerText);
+                            break;
+                        case "P":
+                            parameters.P = Convert.FromBase64String(node.InnerText);
+                            break;
+                        case "Q":
+                            parameters.Q = Convert.FromBase64String(node.InnerText);
+                            break;
+                        case "DP":
+                            parameters.DP = Convert.FromBase64String(node.InnerText);
+                            break;
+                        case "DQ":
+                            parameters.DQ = Convert.FromBase64String(node.InnerText);
+                            break;
+                        case "InverseQ":
+                            parameters.InverseQ = Convert.FromBase64String(node.InnerText);
+                            break;
+                        case "D":
+                            parameters.D = Convert.FromBase64String(node.InnerText);
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("Invalid Xml RSA Key");
+            }
+            rsa.ImportParameters(parameters);
+        }
     }
 }

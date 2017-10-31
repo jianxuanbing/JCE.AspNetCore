@@ -191,24 +191,214 @@ namespace JCE.Utils.Encrypts.Asymmetric
 
         #endregion
 
+        #region Encrypt(加密)
 
-
+        /// <summary>
+        /// 加密
+        /// </summary>
+        /// <param name="value">待加密的值</param>
+        /// <param name="key">公钥</param>
+        /// <returns></returns>
         public static string Encrypt(string value, string key)
         {
             return Encrypt(value, key, Encoding.UTF8);
         }
 
+        /// <summary>
+        /// 加密
+        /// </summary>
+        /// <param name="value">待加密的值</param>
+        /// <param name="key">公钥</param>
+        /// <param name="encoding">编码</param>
+        /// <returns></returns>
         public static string Encrypt(string value, string key, Encoding encoding)
         {
             return Encrypt(value, key, Encoding.UTF8, RSAEncryptionPadding.Pkcs1);
         }
 
-        public static string Encrypt(string value, string key, Encoding encoding,RSAEncryptionPadding padding)
+        /// <summary>
+        /// 加密
+        /// </summary>
+        /// <param name="value">待加密的值</param>
+        /// <param name="key">公钥</param>
+        /// <param name="encoding">编码</param>
+        /// <param name="padding">填充方式</param>
+        /// <returns></returns>
+        public static string Encrypt(string value, string key, Encoding encoding, RSAEncryptionPadding padding)
         {
             byte[] data = encoding.GetBytes(value);
             var provider = CreateRsaProviderFromPublicKey(key);
-            return Convert.ToBase64String(provider.Encrypt(data,padding));
+            return Convert.ToBase64String(provider.Encrypt(data, padding));
         }
+
+        #endregion
+
+        #region EncryptBlock(分块加密)
+
+        /// <summary>
+        /// 分块加密
+        /// </summary>
+        /// <param name="value">待加密的值</param>
+        /// <param name="key">公钥</param>
+        /// <returns></returns>
+        public static string EncryptBlock(string value, string key)
+        {
+            return EncryptBlock(value, key, Encoding.UTF8);
+        }
+
+        /// <summary>
+        /// 分块加密
+        /// </summary>
+        /// <param name="value">待加密的值</param>
+        /// <param name="key">公钥</param>
+        /// <param name="encoding">编码</param>
+        /// <returns></returns>
+        public static string EncryptBlock(string value, string key, Encoding encoding)
+        {
+            return EncryptBlock(value, key, encoding, RSAEncryptionPadding.Pkcs1);
+        }
+
+        /// <summary>
+        /// 分块加密
+        /// </summary>
+        /// <param name="value">待加密的值</param>
+        /// <param name="key">公钥</param>
+        /// <param name="encoding">编码</param>
+        /// <param name="padding">填充方式</param>
+        /// <returns></returns>
+        public static string EncryptBlock(string value, string key, Encoding encoding, RSAEncryptionPadding padding)
+        {
+            byte[] data = encoding.GetBytes(value);
+            var provider = CreateRsaProviderFromPublicKey(key);
+
+            int bufferSize = (provider.KeySize / 8) - 11;//单块最大长度
+            var buffer=new byte[bufferSize];
+            using (MemoryStream inputStream=new MemoryStream(data),outStream=new MemoryStream())
+            {
+                while (true)
+                {
+                    // 分段加密
+                    int readSize = inputStream.Read(buffer, 0, bufferSize);
+                    if (readSize <= 0)
+                    {
+                        break;
+                    }
+                    var temp = new byte[readSize];
+                    Array.Copy(buffer,0,temp,0,readSize);
+                    RSACryptoServiceProvider a=new RSACryptoServiceProvider();
+                    var encryptedBytes = provider.Encrypt(temp, padding);
+                    outStream.Write(encryptedBytes,0,encryptedBytes.Length);
+                }
+                provider.Dispose();
+                return Convert.ToBase64String(outStream.ToArray());
+            }
+        }
+
+        #endregion
+
+        #region Decrypt(解密)
+
+        /// <summary>
+        /// 解密
+        /// </summary>
+        /// <param name="value">已加密的值</param>
+        /// <param name="key">私钥</param>
+        /// <returns></returns>
+        public static string Decrypt(string value, string key)
+        {
+            return Decrypt(value, key, Encoding.UTF8);
+        }
+
+        /// <summary>
+        /// 解密
+        /// </summary>
+        /// <param name="value">已加密的值</param>
+        /// <param name="key">私钥</param>
+        /// <param name="encoding">编码</param>
+        /// <returns></returns>
+        public static string Decrypt(string value, string key, Encoding encoding)
+        {
+            return Decrypt(value, key, encoding, RSAEncryptionPadding.Pkcs1);
+        }
+
+        /// <summary>
+        /// 解密
+        /// </summary>
+        /// <param name="value">已加密的值</param>
+        /// <param name="key">私钥</param>
+        /// <param name="encoding">编码</param>
+        /// <param name="padding">填充方式</param>
+        /// <returns></returns>
+        public static string Decrypt(string value, string key, Encoding encoding, RSAEncryptionPadding padding)
+        {
+            byte[] data = Convert.FromBase64String(value);
+            var provider = CreateRsaProviderFromPrivateKey(key);
+            return encoding.GetString(provider.Decrypt(data, padding));
+        }
+
+        #endregion
+
+        #region DecryptBlock(分块解密)
+
+        /// <summary>
+        /// 分块解密
+        /// </summary>
+        /// <param name="value">已加密的值</param>
+        /// <param name="key">私钥</param>
+        /// <returns></returns>
+        public static string DecryptBlock(string value, string key)
+        {
+            return DecryptBlock(value, key, Encoding.UTF8);
+        }
+
+        /// <summary>
+        /// 分块解密
+        /// </summary>
+        /// <param name="value">已加密的值</param>
+        /// <param name="key">私钥</param>
+        /// <param name="encoding">编码</param>
+        /// <returns></returns>
+        public static string DecryptBlock(string value, string key, Encoding encoding)
+        {
+            return DecryptBlock(value, key, encoding, RSAEncryptionPadding.Pkcs1);
+        }
+
+        /// <summary>
+        /// 分块解密
+        /// </summary>
+        /// <param name="value">已加密的值</param>
+        /// <param name="key">私钥</param>
+        /// <param name="encoding">编码</param>
+        /// <param name="padding">填充方式</param>
+        /// <returns></returns>
+        public static string DecryptBlock(string value, string key, Encoding encoding, RSAEncryptionPadding padding)
+        {
+            byte[] data = Convert.FromBase64String(value);
+            var provider = CreateRsaProviderFromPrivateKey(key);
+
+            int bufferSize = provider.KeySize / 8;//单块最大长度
+            var buffer = new byte[bufferSize];
+
+            using (MemoryStream inputStream=new MemoryStream(data),outputStream=new MemoryStream())
+            {
+                while (true)
+                {
+                    int readSize = inputStream.Read(buffer, 0, bufferSize);
+                    if (readSize <= 0)
+                    {
+                        break;
+                    }
+                    var temp = new byte[readSize];
+                    Array.Copy(buffer,0,temp,0,readSize);
+                    var rawBytes = provider.Decrypt(temp, padding);
+                    outputStream.Write(rawBytes,0,rawBytes.Length);
+                }
+                provider.Dispose();
+                return encoding.GetString(outputStream.ToArray());
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// 根据私钥创建RSA实例
