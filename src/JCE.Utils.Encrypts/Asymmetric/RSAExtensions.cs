@@ -12,18 +12,6 @@ namespace JCE.Utils.Encrypts.Asymmetric
     public static class RSAExtensions
     {
         /// <summary>
-        /// 公钥
-        /// </summary>
-        private const string PublicKeyFormat =
-            @"<RSAKeyValue><Modulus>{0}</Modulus><Exponent>{1}</Exponent></RSAKeyValue>";
-
-        /// <summary>
-        /// 私钥
-        /// </summary>
-        private const string PrivateKeyFormat =
-            @"<RSAKeyValue><Modulus>{0}</Modulus><Exponent>{1}</Exponent><P>{2}</P><Q>{3}</Q><DP>{4}</DP><DQ>{5}</DQ><InverseQ>{6}</InverseQ><D>{7}</D></RSAKeyValue>";
-
-        /// <summary>
         /// 获取RSA Xml序列化
         /// </summary>
         /// <param name="rsa">RSA实例</param>
@@ -35,7 +23,7 @@ namespace JCE.Utils.Encrypts.Asymmetric
 
             if (includePrivateParameters)
             {
-                return string.Format(PrivateKeyFormat,
+                return string.Format(Const.PrivateKeyFormat,
                     parameters.Modulus != null ? Convert.ToBase64String(parameters.Modulus) : null,
                     parameters.Exponent != null ? Convert.ToBase64String(parameters.Exponent) : null,
                     parameters.P != null ? Convert.ToBase64String(parameters.P) : null,
@@ -45,11 +33,9 @@ namespace JCE.Utils.Encrypts.Asymmetric
                     parameters.InverseQ != null ? Convert.ToBase64String(parameters.InverseQ) : null,
                     parameters.D != null ? Convert.ToBase64String(parameters.D) : null);
             }
-            return string.Format(PublicKeyFormat,
+            return string.Format(Const.PublicKeyFormat,
                 parameters.Modulus != null ? Convert.ToBase64String(parameters.Modulus) : null,
                 parameters.Exponent != null ? Convert.ToBase64String(parameters.Exponent) : null);
-        }
-
-        
+        }        
     }
 }
