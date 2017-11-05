@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetCore.CAP" Version="2.1.0-preview-26231671" />
+    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="2.1.0-preview-26231671" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\JCE.Logs\JCE.Logs.csproj" />
     <ProjectReference Include="..\JCE\JCE.csproj" />
   </ItemGroup>

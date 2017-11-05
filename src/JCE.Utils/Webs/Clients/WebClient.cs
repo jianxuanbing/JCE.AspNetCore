@@ -49,6 +49,17 @@ namespace JCE.Utils.Webs.Clients
         {
             return new HttpRequest(HttpMethod.Delete, url);
         }
+
+        /// <summary>
+        /// Patch请求
+        /// </summary>
+        /// <param name="url">地址</param>
+        /// <returns></returns>
+        public IHttpRequest Patch(string url)
+        {
+            HttpMethod method=new HttpMethod("PATCH");
+            return new HttpRequest(method,url);
+        }
     }
 
     /// <summary>
@@ -87,9 +98,25 @@ namespace JCE.Utils.Webs.Clients
             return new HttpRequest<TResult>(HttpMethod.Put, url);
         }
 
+        /// <summary>
+        /// Delete请求
+        /// </summary>
+        /// <param name="url">地址</param>
+        /// <returns></returns>
         public IHttpRequest<TResult> Delete(string url)
         {
             return new HttpRequest<TResult>(HttpMethod.Delete, url);
+        }
+
+        /// <summary>
+        /// Patch请求
+        /// </summary>
+        /// <param name="url">地址</param>
+        /// <returns></returns>
+        public IHttpRequest<TResult> Patch(string url)
+        {
+            HttpMethod method = new HttpMethod("PATCH");
+            return new HttpRequest<TResult>(method, url);
         }
     }
 }

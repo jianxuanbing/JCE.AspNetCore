@@ -20,6 +20,49 @@ namespace JCE.Applications
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
+    /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
+    public abstract class CrudServiceBase<TEntity, TDto, TQueryParameter> : CrudServiceBase<TEntity, TDto, TDto, TQueryParameter, Guid>, ICrudService<TDto, TQueryParameter>
+        where TEntity : class, IAggregateRoot<TEntity, Guid>
+        where TDto : IDto, new()
+        where TQueryParameter : IQueryParameter
+    {
+        /// <summary>
+        /// 初始化增删改查服务
+        /// </summary>
+        /// <param name="unitOfWork">工作单元</param>
+        /// <param name="repository">仓储</param>
+        protected CrudServiceBase(IUnitOfWork unitOfWork, IRepository<TEntity, Guid> repository) : base(unitOfWork, repository)
+        {
+        }
+    }
+
+    /// <summary>
+    /// 增删改查服务
+    /// </summary>
+    /// <typeparam name="TEntity">实体类型</typeparam>
+    /// <typeparam name="TDto">数据传输对象类型</typeparam>
+    /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
+    /// <typeparam name="TKey">实体标识类型</typeparam>
+    public abstract class CrudServiceBase<TEntity, TDto, TQueryParameter, TKey> :CrudServiceBase<TEntity, TDto, TDto, TQueryParameter, TKey>,ICrudService<TDto, TQueryParameter> 
+        where TEntity : class, IAggregateRoot<TEntity, TKey>
+        where TDto : IDto, new()
+        where TQueryParameter : IQueryParameter
+    {
+        /// <summary>
+        /// 初始化增删改查服务
+        /// </summary>
+        /// <param name="unitOfWork">工作单元</param>
+        /// <param name="repository">仓储</param>
+        protected CrudServiceBase(IUnitOfWork unitOfWork, IRepository<TEntity, TKey> repository) : base(unitOfWork, repository)
+        {
+        }
+    }
+
+    /// <summary>
+    /// 增删改查服务
+    /// </summary>
+    /// <typeparam name="TEntity">实体类型</typeparam>
+    /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TRequest">请求参数类型</typeparam>
     /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>

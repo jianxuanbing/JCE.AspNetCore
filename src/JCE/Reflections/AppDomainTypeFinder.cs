@@ -64,9 +64,23 @@ namespace JCE.Reflections
         {
             foreach (var file in Directory.GetFiles(path, "*.dll"))
             {
-                var assembly = AssemblyName.GetAssemblyName(file);
-                AppDomain.CurrentDomain.Load(assembly);
+                var assemblyName = AssemblyName.GetAssemblyName(file);
+                if (Match(assemblyName))
+                {
+                    AppDomain.CurrentDomain.Load(assemblyName);
+                }                
             }
+        }
+
+        /// <summary>
+        /// 程序集是否匹配
+        /// </summary>
+        /// <param name="assemblyName">程序集名</param>
+        /// <returns></returns>
+        private bool Match(AssemblyName assemblyName)
+        {
+            return !Regex.IsMatch(assemblyName.FullName, SkipAssemblies,
+                RegexOptions.IgnoreCase | RegexOptions.Compiled);
         }
 
         #endregion

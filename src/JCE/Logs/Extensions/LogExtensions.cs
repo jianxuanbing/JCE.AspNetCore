@@ -11,6 +11,16 @@ namespace JCE.Logs.Extensions
     public static class LogExtensions
     {
         /// <summary>
+        /// 设置内容
+        /// </summary>
+        /// <param name="log">日志操作</param>
+        /// <returns></returns>
+        public static ILog Content(this ILog log)
+        {
+            return log.Set<ILogContent>(content => content.Content(""));
+        }
+
+        /// <summary>
         /// 设置内容并换行
         /// </summary>
         /// <param name="log">日志操作</param>
@@ -20,6 +30,25 @@ namespace JCE.Logs.Extensions
         public static ILog Content(this ILog log, string value, params object[] args)
         {
             return log.Set<ILogContent>(content => content.Content(value, args));
+        }
+
+        /// <summary>
+        /// 设置内容
+        /// </summary>
+        /// <param name="log">日志操作</param>
+        /// <param name="dictionary">字典</param>
+        /// <returns></returns>
+        public static ILog Content(this ILog log, IDictionary<string, string> dictionary)
+        {
+            if (dictionary == null)
+            {
+                return log;
+            }
+            foreach (var keyValue in dictionary)
+            {
+                log.Set<ILogContent>(content => content.Content("{0} : {1}", keyValue.Key, keyValue.Value));
+            }
+            return log;
         }
     }
 }
