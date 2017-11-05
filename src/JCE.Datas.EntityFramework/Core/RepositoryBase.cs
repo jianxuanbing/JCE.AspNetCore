@@ -5,9 +5,11 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using JCE.Datas.EntityFramework.Internal;
+using JCE.Datas.Queries;
 using JCE.Datas.UnitOfWorks;
 using JCE.Domains.Entities;
 using JCE.Domains.Repositories;
+using JCE.Utils.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace JCE.Datas.EntityFramework.Core
@@ -45,225 +47,495 @@ namespace JCE.Datas.EntityFramework.Core
             Set = _wrapper.Set;
         }
 
+        #region Find(懒加载查找实体集合)
 
+        /// <summary>
+        /// 获取未跟踪的实体集
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<TEntity> FindAsNoTracking()
         {
             return Set.AsNoTracking();
         }
 
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<TEntity> Find()
         {
-            throw new NotImplementedException();
+            return _wrapper.Find();
         }
 
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="criteria">查询条件对象</param>
+        /// <returns></returns>
         public IQueryable<TEntity> Find(ICriteria<TEntity> criteria)
         {
-            throw new NotImplementedException();
+            return Find().Where(criteria);
         }
 
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
         public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return Find().Where(predicate);
         }
 
+        #endregion
+
+        #region Find(根据主键查找实体)
+
+        /// <summary>
+        /// 根据主键查找实体
+        /// </summary>
+        /// <param name="id">实体标识</param>
+        /// <returns></returns>
         public TEntity Find(object id)
         {
-            throw new NotImplementedException();
+            return _wrapper.Find(id);
         }
 
-        public Task<TEntity> FindAsync(object id)
+        /// <summary>
+        /// 根据主键查找实体
+        /// </summary>
+        /// <param name="id">实体标识</param>
+        /// <returns></returns>
+        public async Task<TEntity> FindAsync(object id)
         {
-            throw new NotImplementedException();
+            return await _wrapper.FindAsync(id);
         }
 
+        #endregion
+
+        #region FindByIds(根据主键集合查找实体集合)
+
+        /// <summary>
+        /// 根据主键集合查找实体集合
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        /// <returns></returns>
         public List<TEntity> FindByIds(params TKey[] ids)
         {
-            throw new NotImplementedException();
+            return _wrapper.FindByIds(ids);
         }
 
+        /// <summary>
+        /// 根据主键集合查找实体集合
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        /// <returns></returns>
         public List<TEntity> FindByIds(IEnumerable<TKey> ids)
         {
-            throw new NotImplementedException();
+            return _wrapper.FindByIds(ids);
         }
 
+        /// <summary>
+        /// 根据主键集合查找实体集合
+        /// </summary>
+        /// <param name="ids">逗号分隔的Id列表，范例："1,2"</param>
+        /// <returns></returns>
         public List<TEntity> FindByIds(string ids)
         {
-            throw new NotImplementedException();
+            var idList = JCE.Utils.Helpers.Conv.ToList<TKey>(ids);
+            return FindByIds(idList);
         }
 
-        public Task<List<TEntity>> FindByIdsAsync(params TKey[] ids)
+        /// <summary>
+        /// 根据主键集合查找实体集合
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        /// <returns></returns>
+        public async Task<List<TEntity>> FindByIdsAsync(params TKey[] ids)
         {
-            throw new NotImplementedException();
+            return await _wrapper.FindByIdsAsync(ids);
         }
 
-        public Task<List<TEntity>> FindByIdsAsync(IEnumerable<TKey> ids)
+        /// <summary>
+        /// 根据主键集合查找实体集合
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        /// <returns></returns>
+        public async Task<List<TEntity>> FindByIdsAsync(IEnumerable<TKey> ids)
         {
-            throw new NotImplementedException();
+            return await _wrapper.FindByIdsAsync(ids);
         }
 
-        public Task<List<TEntity>> FindByIdsAsync(string ids)
+        /// <summary>
+        /// 根据主键集合查找实体集合
+        /// </summary>
+        /// <param name="ids">逗号分隔的Id列表，范例："1,2"</param>
+        /// <returns></returns>
+        public async Task<List<TEntity>> FindByIdsAsync(string ids)
         {
-            throw new NotImplementedException();
+            var idList = JCE.Utils.Helpers.Conv.ToList<TKey>(ids);
+            return await FindByIdsAsync(idList);
         }
 
+        #endregion
+
+        #region Single(获取单个实体)
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
         public TEntity Single(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _wrapper.Single(predicate);
         }
 
-        public Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        public async Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await _wrapper.SingleAsync(predicate);
         }
 
+        #endregion
+
+        #region FindAll(查找实体集合)
+
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
         public List<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            return predicate == null ? Find().ToList() : Find(predicate).ToList();
         }
 
-        public Task<List<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> predicate = null)
+        /// <summary>
+        /// 查找实体集合
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        public async Task<List<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            return predicate == null ? await Find().ToListAsync() : await Find(predicate).ToListAsync();
         }
 
+        #endregion
+
+        #region Exists(判断实体是否存在)
+
+        /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
         public bool Exists(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return predicate != null && Find().Any(predicate);
         }
 
+        /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        /// <returns></returns>
         public bool Exists(params TKey[] ids)
         {
-            throw new NotImplementedException();
+            return ids != null && Exists(t => ids.Contains(t.Id));
         }
 
-        public Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
+        /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return predicate != null && await Find().AnyAsync(predicate);
         }
 
-        public Task<bool> ExistsAsync(params TKey[] ids)
+        /// <summary>
+        /// 判断实体是否存在
+        /// </summary>
+        /// <param name="ids">实体标识集合</param>
+        /// <returns></returns>
+        public async Task<bool> ExistsAsync(params TKey[] ids)
         {
-            throw new NotImplementedException();
+            return ids != null && await ExistsAsync(t => ids.Contains(t.Id));
         }
 
+        #endregion
+
+        #region Count(获取实体个数)
+
+        /// <summary>
+        /// 获取实体个数
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
         public int Count(Expression<Func<TEntity, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            return predicate == null ? Set.Count() : Set.Count(predicate);
         }
 
+        /// <summary>
+        /// 获取实体个数
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
         public Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            return predicate == null ? Set.CountAsync() : Set.CountAsync(predicate);
         }
 
+        #endregion
+
+        #region Query(查询)
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
         public List<TEntity> Query(IQueryBase<TEntity> query)
         {
-            throw new NotImplementedException();
+            return _wrapper.Query(query);
         }
 
-        public Task<List<TEntity>> QueryAsync(IQueryBase<TEntity> query)
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        public async Task<List<TEntity>> QueryAsync(IQueryBase<TEntity> query)
         {
-            throw new NotImplementedException();
+            return await _wrapper.QueryAsync(query);
         }
 
+        /// <summary>
+        /// 查询 - 返回未跟踪的实体
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
         public List<TEntity> QueryAsNoTracking(IQueryBase<TEntity> query)
         {
-            throw new NotImplementedException();
+            return _wrapper.QueryAsNoTracking(query);
         }
 
-        public Task<List<TEntity>> QueryAsNoTrackingAsync(IQueryBase<TEntity> query)
+        /// <summary>
+        /// 查询 - 返回未跟踪的实体
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        public async Task<List<TEntity>> QueryAsNoTrackingAsync(IQueryBase<TEntity> query)
         {
-            throw new NotImplementedException();
+            return await _wrapper.QueryAsNoTrackingAsync(query);
         }
 
+        #endregion
+
+        #region PagerQuery(分页查询)
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
         public PagerList<TEntity> PagerQuery(IQueryBase<TEntity> query)
         {
-            throw new NotImplementedException();
+            return _wrapper.PagerQuery(query);
         }
 
-        public Task<PagerList<TEntity>> PagerQueryAsync(IQueryBase<TEntity> query)
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        public async Task<PagerList<TEntity>> PagerQueryAsync(IQueryBase<TEntity> query)
         {
-            throw new NotImplementedException();
+            return await _wrapper.PagerQueryAsync(query);
         }
 
+        /// <summary>
+        /// 分页查询 - 返回未跟踪的实体
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
         public PagerList<TEntity> PagerQueryAsNoTracking(IQueryBase<TEntity> query)
         {
-            throw new NotImplementedException();
+            return _wrapper.PagerQueryAsNoTracking(query);
         }
 
-        public Task<PagerList<TEntity>> PagerQueryAsNoTrackingAsync(IQueryBase<TEntity> query)
+        /// <summary>
+        /// 分页查询 - 返回未跟踪的实体
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        public async Task<PagerList<TEntity>> PagerQueryAsNoTrackingAsync(IQueryBase<TEntity> query)
         {
-            throw new NotImplementedException();
+            return await _wrapper.PagerQueryAsNoTrackingAsync(query);
         }
 
+        #endregion
+
+        #region Add(添加实体)
+
+        /// <summary>
+        /// 添加实体
+        /// </summary>
+        /// <param name="entity">实体</param>
         public void Add(TEntity entity)
         {
-            throw new NotImplementedException();
+            _wrapper.Add(entity);
         }
 
+        /// <summary>
+        /// 添加实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
         public void Add(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            _wrapper.Add(entities);
         }
 
-        public Task AddAsync(TEntity entity)
+        /// <summary>
+        /// 添加实体
+        /// </summary>
+        /// <param name="entity">实体</param>
+        /// <returns></returns>
+        public async Task AddAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            await _wrapper.AddAsync(entity);
         }
 
-        public Task AddAsync(IEnumerable<TEntity> entities)
+        /// <summary>
+        /// 添加实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        /// <returns></returns>
+        public async Task AddAsync(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            await _wrapper.AddAsync(entities);
         }
 
+        #endregion
+
+        #region Update(修改实体)
+
+        /// <summary>
+        /// 修改实体
+        /// </summary>
+        /// <param name="entity">实体</param>
         public void Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            var oldEntity = Find(entity.Id);
+            _wrapper.Update(entity, oldEntity);
         }
 
-        public Task UpdateAsync(TEntity entity)
+        /// <summary>
+        /// 修改实体
+        /// </summary>
+        /// <param name="entity">实体</param>
+        /// <returns></returns>
+        public async Task UpdateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            var oldEntity = await _wrapper.FindAsync(entity.Id);
+            _wrapper.Update(entity, oldEntity);
         }
 
+        #endregion
+
+        #region Remove(移除实体)
+
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="id">实体标识</param>
         public void Remove(TKey id)
         {
-            throw new NotImplementedException();
+            _wrapper.Remove(id);
         }
 
-        public Task RemoveAsync(TKey id)
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="id">实体标识</param>
+        /// <returns></returns>
+        public async Task RemoveAsync(TKey id)
         {
-            throw new NotImplementedException();
+            await _wrapper.RemoveAsync(id);
         }
 
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="entity">实体</param>
         public void Remove(TEntity entity)
         {
-            throw new NotImplementedException();
+            _wrapper.Remove(entity);
         }
 
-        public Task RemoveAsync(TEntity entity)
+        /// <summary>
+        /// 移除实体
+        /// </summary>
+        /// <param name="entity">实体</param>
+        /// <returns></returns>
+        public async Task RemoveAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            await _wrapper.RemoveAsync(entity);
         }
 
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
+        /// <param name="ids">实体编号集合</param>
         public void Remove(IEnumerable<TKey> ids)
         {
-            throw new NotImplementedException();
+            _wrapper.Remove(ids);
         }
 
-        public Task RemoveAsync(IEnumerable<TKey> ids)
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
+        /// <param name="ids">实体编号集合</param>
+        /// <returns></returns>
+        public async Task RemoveAsync(IEnumerable<TKey> ids)
         {
-            throw new NotImplementedException();
+            await _wrapper.RemoveAsync(ids);
         }
 
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
         public void Remove(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            _wrapper.Remove(entities);
         }
 
-        public Task RemoveAsync(IEnumerable<TEntity> entities)
+        /// <summary>
+        /// 移除实体集合
+        /// </summary>
+        /// <param name="entities">实体集合</param>
+        public async Task RemoveAsync(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
+            await _wrapper.RemoveAsync(entities);
         }
+
+        #endregion
+
     }
 }

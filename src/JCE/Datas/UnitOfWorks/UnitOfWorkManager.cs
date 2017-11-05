@@ -29,19 +29,9 @@ namespace JCE.Datas.UnitOfWorks
         /// </summary>
         public void Commit()
         {
-            if (_unitOfWorks.Count == 0)
+            foreach (var unitOfWork in _unitOfWorks)
             {
-                return;
-            }
-            if (_unitOfWorks.Count == 1)
-            {
-                _unitOfWorks[0].Commit();
-                return;
-            }
-            using(var scope=new TransactionScope())
-            {
-                _unitOfWorks.ForEach(unitOfWork => unitOfWork.Commit());
-                scope.Complete();
+                unitOfWork.Commit();
             }
         }
 
@@ -51,22 +41,9 @@ namespace JCE.Datas.UnitOfWorks
         /// <returns></returns>
         public async Task CommitAsync()
         {
-            if (_unitOfWorks.Count == 0)
+            foreach (var unitOfWork in _unitOfWorks)
             {
-                return;
-            }
-            if (_unitOfWorks.Count == 1)
-            {
-                await _unitOfWorks[0].CommitAsync();
-                return;
-            }
-            using (var scope = new TransactionScope())
-            {
-                foreach(var unitOfWork in _unitOfWorks)
-                {
-                    await unitOfWork.CommitAsync();
-                }                
-                scope.Complete();
+                await unitOfWork.CommitAsync();
             }
         }
 

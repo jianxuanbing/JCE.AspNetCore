@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using JCE.Aspects;
+using JCE.Dependency;
 
 namespace JCE.Datas.UnitOfWorks
 {
@@ -10,7 +11,7 @@ namespace JCE.Datas.UnitOfWorks
     /// 工作单元
     /// </summary>
     [Ignore]
-    public interface IUnitOfWork:IDisposable
+    public interface IUnitOfWork:IDisposable,IScopeDependency
     {
         /// <summary>
         /// 提交，返回影响的行数

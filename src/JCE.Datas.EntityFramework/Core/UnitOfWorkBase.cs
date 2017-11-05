@@ -247,8 +247,7 @@ namespace JCE.Datas.EntityFramework.Core
         /// <param name="entry">输入实体</param>
         protected void InitVersion(EntityEntry entry)
         {
-            var entity = entry.Entity as IAggregateRoot;
-            if (entity==null)
+            if (!(entry.Entity is IAggregateRoot entity))
             {
                 return;
             }

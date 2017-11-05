@@ -25,6 +25,10 @@ namespace JCE.Datas.EntityFramework.Core
         {
             ModelBuilder = modelBuilder;
             var builder = modelBuilder.Entity<TEntity>();
+            MapTable(builder);
+            MapVersion(builder);
+            MapProperties(builder);
+            MapAssociations(builder);
         }
 
         /// <summary>

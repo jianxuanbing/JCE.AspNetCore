@@ -23,6 +23,8 @@ namespace JCE.Domains.Repositories
     /// <typeparam name="TKey">实体标识类型</typeparam>
     public interface IRepository<TEntity,in TKey>:IReadableRepository<TEntity,TKey> where TEntity:class,IAggregateRoot
     {
+        #region Add(添加实体)
+
         /// <summary>
         /// 添加实体
         /// </summary>
@@ -49,6 +51,10 @@ namespace JCE.Domains.Repositories
         /// <returns></returns>
         Task AddAsync(IEnumerable<TEntity> entities);
 
+        #endregion
+
+        #region Update(修改实体)
+
         /// <summary>
         /// 修改实体
         /// </summary>
@@ -61,6 +67,10 @@ namespace JCE.Domains.Repositories
         /// <param name="entity">实体</param>
         /// <returns></returns>
         Task UpdateAsync([Valid] TEntity entity);
+
+        #endregion
+
+        #region Remove(移除实体)
 
         /// <summary>
         /// 移除实体
@@ -112,5 +122,8 @@ namespace JCE.Domains.Repositories
         /// </summary>
         /// <param name="entities">实体集合</param>
         Task RemoveAsync(IEnumerable<TEntity> entities);
+
+        #endregion
+
     }
 }

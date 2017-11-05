@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using JCE.Dependency;
 
 namespace JCE.Datas.UnitOfWorks
 {
     /// <summary>
     /// 工作单元管理器
     /// </summary>
-    public interface IUnitOfWorkManager
+    public interface IUnitOfWorkManager:IScopeDependency
     {
         /// <summary>
         /// 提交

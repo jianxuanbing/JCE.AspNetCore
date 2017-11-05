@@ -42,6 +42,8 @@ namespace JCE.Datas.EntityFramework.Internal
             UnitOfWork = (UnitOfWorkBase) unitOfWork;
         }
 
+        #region Find(懒加载查找实体集合)
+
         /// <summary>
         /// 获取未跟踪的实体集
         /// </summary>
@@ -59,6 +61,10 @@ namespace JCE.Datas.EntityFramework.Internal
         {
             return Set;
         }
+
+        #endregion
+
+        #region Find(根据主键查找实体)
 
         /// <summary>
         /// 查找实体
@@ -88,6 +94,10 @@ namespace JCE.Datas.EntityFramework.Internal
             return await Set.FindAsync(id);
         }
 
+        #endregion
+
+        #region FindByIds(根据主键集合查找实体集合)
+
         /// <summary>
         /// 查找实体集合
         /// </summary>
@@ -95,7 +105,7 @@ namespace JCE.Datas.EntityFramework.Internal
         /// <returns></returns>
         public List<TEntity> FindByIds(params TKey[] ids)
         {
-            return FindByIds((IEnumerable<TKey>) ids);
+            return FindByIds((IEnumerable<TKey>)ids);
         }
 
         /// <summary>
@@ -119,7 +129,7 @@ namespace JCE.Datas.EntityFramework.Internal
         /// <returns></returns>
         public async Task<List<TEntity>> FindByIdsAsync(params TKey[] ids)
         {
-            return await FindByIdsAsync((IEnumerable<TKey>) ids);
+            return await FindByIdsAsync((IEnumerable<TKey>)ids);
         }
 
         /// <summary>
@@ -135,6 +145,10 @@ namespace JCE.Datas.EntityFramework.Internal
             }
             return await Find().Where(t => ids.Contains(t.Id)).ToListAsync();
         }
+
+        #endregion
+
+        #region Single(获取单个实体)
 
         /// <summary>
         /// 获取单个实体
@@ -155,6 +169,10 @@ namespace JCE.Datas.EntityFramework.Internal
         {
             return await Find().FirstOrDefaultAsync(predicate);
         }
+
+        #endregion
+
+        #region Query(查询)
 
         /// <summary>
         /// 查询
@@ -213,6 +231,10 @@ namespace JCE.Datas.EntityFramework.Internal
             return await GetQueryResult(FindAsNoTracking(), query).ToListAsync();
         }
 
+        #endregion
+
+        #region PagerQuery(分页查询)
+
         /// <summary>
         /// 分页查询
         /// </summary>
@@ -252,6 +274,32 @@ namespace JCE.Datas.EntityFramework.Internal
             var pager = query.GetPager();
             return await GetPagerQueryResult(Find(), query, pager).ToPagerListAsync(pager);
         }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        public PagerList<TEntity> PagerQueryAsNoTracking(IQueryBase<TEntity> query)
+        {
+            var pager = query.GetPager();
+            return GetPagerQueryResult(FindAsNoTracking(), query, pager).ToPagerList(pager);
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="query">查询对象</param>
+        /// <returns></returns>
+        public async Task<PagerList<TEntity>> PagerQueryAsNoTrackingAsync(IQueryBase<TEntity> query)
+        {
+            var pager = query.GetPager();
+            return await GetPagerQueryResult(FindAsNoTracking(), query, pager).ToPagerListAsync(pager);
+        }
+
+        #endregion
+
+        #region Add(添加实体)
 
         /// <summary>
         /// 添加实体
@@ -305,6 +353,10 @@ namespace JCE.Datas.EntityFramework.Internal
             await Set.AddRangeAsync(entities);
         }
 
+        #endregion
+
+        #region Update(修改实体)
+
         /// <summary>
         /// 修改实体
         /// </summary>
@@ -333,7 +385,7 @@ namespace JCE.Datas.EntityFramework.Internal
             {
                 throw new ArgumentNullException(nameof(oldEntity));
             }
-            ValidateVersion(newEntity,oldEntity);
+            ValidateVersion(newEntity, oldEntity);
             UnitOfWork.Entry(oldEntity).CurrentValues.SetValues(newEntity);
         }
 
@@ -348,7 +400,7 @@ namespace JCE.Datas.EntityFramework.Internal
             {
                 throw new ConcurrencyException();
             }
-            for(int i = 0;i < oldEntity.Version.Length; i++)
+            for (int i = 0; i < oldEntity.Version.Length; i++)
             {
                 if (newEntity.Version[i] != oldEntity.Version[i])
                 {
@@ -356,6 +408,10 @@ namespace JCE.Datas.EntityFramework.Internal
                 }
             }
         }
+
+        #endregion
+
+        #region Remove(移除实体)
 
         /// <summary>
         /// 移除实体
@@ -377,13 +433,12 @@ namespace JCE.Datas.EntityFramework.Internal
             {
                 return;
             }
-            ISoftDelete model=entity as ISoftDelete;
-            if (model == null)
+            if (entity is ISoftDelete model)
             {
-                Set.Remove(entity);
+                model.IsDeleted = true;
                 return;
             }
-            model.IsDeleted = true;
+            Set.Remove(entity);
         }
 
         /// <summary>
@@ -453,7 +508,7 @@ namespace JCE.Datas.EntityFramework.Internal
             }
             if (list[0] is ISoftDelete)
             {
-                foreach (var entity in list.Select(t=>(ISoftDelete)t))
+                foreach (var entity in list.Select(t => (ISoftDelete)t))
                 {
                     entity.IsDeleted = true;
                 }
@@ -486,7 +541,7 @@ namespace JCE.Datas.EntityFramework.Internal
             {
                 return;
             }
-            Remove(entities.Select(t=>t.Id));
+            Remove(entities.Select(t => t.Id));
         }
 
         /// <summary>
@@ -501,5 +556,7 @@ namespace JCE.Datas.EntityFramework.Internal
             }
             await RemoveAsync(entities.Select(t => t.Id));
         }
+
+        #endregion
     }
 }
