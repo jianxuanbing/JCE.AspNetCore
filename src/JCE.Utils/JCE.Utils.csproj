@@ -43,7 +43,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="IO\Paths\" />
     <Folder Include="Signatures\" />
+    <Folder Include="Files\" />
   </ItemGroup>
 
 </Project>
