@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Files\**" />
+    <EmbeddedResource Remove="Files\**" />
+    <None Remove="Files\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="JCE.Utils.csproj.DotSettings" />
   </ItemGroup>
 
@@ -43,9 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IO\Paths\" />
     <Folder Include="Signatures\" />
-    <Folder Include="Files\" />
   </ItemGroup>
 
 </Project>

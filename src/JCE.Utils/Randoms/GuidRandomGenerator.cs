@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using JCE.Utils.Helpers;
 
 namespace JCE.Utils.Randoms
 {
@@ -9,9 +10,15 @@ namespace JCE.Utils.Randoms
     /// </summary>
     public class GuidRandomGenerator:IRandomGenerator
     {
+        /// <summary>
+        /// 生成随机数
+        /// </summary>
+        /// <returns></returns>
         public string Generate()
         {
-            throw new NotImplementedException();
+            return Id.Guid();
         }
+
+        public static readonly IRandomGenerator Instance=new GuidRandomGenerator();
     }
 }

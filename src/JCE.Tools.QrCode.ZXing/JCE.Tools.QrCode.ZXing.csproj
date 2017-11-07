@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>JCE.Tools.QrCode.ZXing</AssemblyName>
+    <RootNamespace>JCE.Tools.QrCode.ZXing</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
