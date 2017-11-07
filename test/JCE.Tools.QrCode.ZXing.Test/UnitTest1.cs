@@ -26,8 +26,12 @@ namespace JCE.Tools.QrCode.ZXing.Test
             service.Correction(ErrorCorrectionLevel.M);
             service.Size(QrSize.Large);
             service.Logo(@"D:\Test\test.jpg");
-            var fileName = service.Save("http://www.cnblogs.com/jianxuanbing/p/7376757.html");
-            Output.WriteLine(fileName);
+            for (int i = 0; i < 1; i++)
+            {
+                var fileName = service.Save("http://www.cnblogs.com/jianxuanbing/p/7376757.html");
+                Output.WriteLine(fileName);
+            }
+            
         }
 
         public UnitTest1(ITestOutputHelper output) : base(output)
