@@ -73,7 +73,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JCE.Tools.QrCode", "src\JCE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JCE.Tools.QrCode.ZXing", "src\JCE.Tools.QrCode.ZXing\JCE.Tools.QrCode.ZXing.csproj", "{2A079E90-83F5-4C1C-BDE3-CDF9F06D5076}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JCE.Tools.QrCode.ZXing.Test", "test\JCE.Tools.QrCode.ZXing.Test\JCE.Tools.QrCode.ZXing.Test.csproj", "{5CBB1D02-5D40-4D5E-B5C6-3DCDE87DC38D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JCE.Tools.QrCode.ZXing.Test", "test\JCE.Tools.QrCode.ZXing.Test\JCE.Tools.QrCode.ZXing.Test.csproj", "{5CBB1D02-5D40-4D5E-B5C6-3DCDE87DC38D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JCE.Tools.QrCode.QrCoder", "src\JCE.Tools.QrCode.QrCoder\JCE.Tools.QrCode.QrCoder.csproj", "{BC4383E7-CD85-46B8-A19D-7F9E20E9514F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -169,6 +171,10 @@ Global
 		{5CBB1D02-5D40-4D5E-B5C6-3DCDE87DC38D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CBB1D02-5D40-4D5E-B5C6-3DCDE87DC38D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CBB1D02-5D40-4D5E-B5C6-3DCDE87DC38D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC4383E7-CD85-46B8-A19D-7F9E20E9514F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC4383E7-CD85-46B8-A19D-7F9E20E9514F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC4383E7-CD85-46B8-A19D-7F9E20E9514F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC4383E7-CD85-46B8-A19D-7F9E20E9514F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -207,6 +213,7 @@ Global
 		{CA258FAB-10DD-4BBF-A05E-161D13324A7E} = {A8FE058F-EC31-4D7D-ACA2-57AA4DEB1058}
 		{2A079E90-83F5-4C1C-BDE3-CDF9F06D5076} = {A8FE058F-EC31-4D7D-ACA2-57AA4DEB1058}
 		{5CBB1D02-5D40-4D5E-B5C6-3DCDE87DC38D} = {CBD3A234-18FA-4D70-9E0A-01349D0A1C21}
+		{BC4383E7-CD85-46B8-A19D-7F9E20E9514F} = {A8FE058F-EC31-4D7D-ACA2-57AA4DEB1058}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C380A49E-1EFF-447A-B6A2-F1AC71FCBABE}
