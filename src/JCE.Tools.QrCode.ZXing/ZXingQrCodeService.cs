@@ -257,6 +257,7 @@ namespace JCE.Tools.QrCode.ZXing
 
         /// <summary>
         /// 合并二维码以及Logo
+        /// 参考：http://www.cnblogs.com/zoro-zero/p/6225697.html
         /// </summary>
         /// <param name="qrImg"></param>
         /// <param name="logoImg"></param>
