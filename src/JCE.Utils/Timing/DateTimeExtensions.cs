@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 
 namespace JCE.Utils.Timing
@@ -226,6 +227,66 @@ namespace JCE.Utils.Timing
             }
             return $"{span.TotalMilliseconds * 1000}毫秒";
         }
+        #endregion
+
+        #region IsWeekend(当前时间是否周末)
+
+        /// <summary>
+        /// 当前时间是否周末
+        /// </summary>
+        /// <param name="dateTime">时间点</param>
+        /// <returns></returns>
+        public static bool IsWeekend(this DateTime dateTime)
+        {
+            DayOfWeek[] weeks = {DayOfWeek.Saturday, DayOfWeek.Sunday};
+            return weeks.Contains(dateTime.DayOfWeek);
+        }
+
+        #endregion
+
+        #region IsWorkday(当前时间是否工作日)
+        /// <summary>
+        /// 当前时间是否工作日
+        /// </summary>
+        /// <param name="dateTime">时间点</param>
+        /// <returns></returns>
+        public static bool IsWeekday(this DateTime dateTime)
+        {
+            DayOfWeek[] weeks =
+                {DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday};
+            return weeks.Contains(dateTime.DayOfWeek);
+        }
+
+        #endregion
+
+        #region ToUniqueString(获取时间相对唯一字符串)
+        /// <summary>
+        /// 获取时间相对唯一字符串
+        /// </summary>
+        /// <param name="dateTime">时间点</param>
+        /// <param name="milsec">是否使用毫秒</param>
+        /// <returns></returns>
+        public static string ToUniqueString(this DateTime dateTime, bool milsec = false)
+        {
+            int sedonds = dateTime.Hour * 3600 + dateTime.Minute * 60 + dateTime.Second;
+            string value = string.Format("{0}{1}{2}", dateTime.ToString("yy"), dateTime.DayOfWeek, sedonds);
+            return milsec ? value + dateTime.ToString("fff") : value;
+        }
+
+        #endregion
+
+        #region ToJsGetTime(将时间转换为Js时间格式)
+        /// <summary>
+        /// 将时间转换为Js时间格式（Date.getTiem()）
+        /// </summary>
+        /// <param name="dateTime">时间点</param>
+        /// <returns></returns>
+        public static string ToJsGetTime(this DateTime dateTime)
+        {
+            DateTime utc = dateTime.ToUniversalTime();
+            return ((long) utc.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds).ToString();
+        }
+
         #endregion
     }
 }
