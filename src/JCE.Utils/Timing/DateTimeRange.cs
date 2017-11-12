@@ -280,5 +280,50 @@ namespace JCE.Utils.Timing
         {
             return string.Format("[{0} - {1}]", StartTime, EndTime);
         }
+
+        /// <summary>
+        /// 获取两个时间之间的天数
+        /// </summary>
+        /// <returns></returns>
+        public int GetDays()
+        {
+            return Convert.ToInt32(EndTime.Subtract(StartTime).TotalDays);
+        }
+
+        /// <summary>
+        /// 获取两个时间之间的小时数
+        /// </summary>
+        /// <returns></returns>
+        public int GetHours()
+        {
+            return Convert.ToInt32(EndTime.Subtract(StartTime).TotalHours);
+        }
+
+        /// <summary>
+        /// 获取两个时间之间的分钟数
+        /// </summary>
+        /// <returns></returns>
+        public int GetMinutes()
+        {
+            return Convert.ToInt32(EndTime.Subtract(StartTime).TotalMinutes);
+        }
+
+        /// <summary>
+        /// 获取两个时间之间的秒数
+        /// </summary>
+        /// <returns></returns>
+        public int GetSeconds()
+        {
+            return Convert.ToInt32(EndTime.Subtract(StartTime).TotalSeconds);
+        }
+
+        /// <summary>
+        /// 获取两个时间之间的毫秒数
+        /// </summary>
+        /// <returns></returns>
+        public int GetMilliseconds()
+        {
+            return Convert.ToInt32(EndTime.Subtract(StartTime).TotalMilliseconds);
+        }
     }
 }
