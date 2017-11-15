@@ -5,12 +5,16 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using JCE.Contexts;
+using JCE.Datas.EntityFramework.Configs;
+using JCE.Datas.EntityFramework.Logs;
 using JCE.Datas.UnitOfWorks;
 using JCE.Domains.Entities;
 using JCE.Domains.Entities.Auditing;
 using JCE.Exceptions;
+using JCE.Logs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.Logging;
 
 namespace JCE.Datas.EntityFramework.Core
 {
@@ -45,6 +49,70 @@ namespace JCE.Datas.EntityFramework.Core
             manager?.Register(this);
             TraceId = Guid.NewGuid().ToString();
             UserContext = JCE.Contexts.UserContext.Null;
+        }
+
+        #endregion
+
+        #region OnConfiguring(配置)
+
+        /// <summary>
+        /// 配置
+        /// </summary>
+        /// <param name="builder">配置生成器</param>
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        {
+            EnableLog(builder);
+        }
+
+        /// <summary>
+        /// 启用日志
+        /// </summary>
+        /// <param name="builder"></param>
+        protected void EnableLog(DbContextOptionsBuilder builder)
+        {
+            var log = GetLog();
+            if (IsEnabled(log) == false)
+            {
+                return;
+            }
+            builder.EnableSensitiveDataLogging();
+            builder.UseLoggerFactory(new LoggerFactory(new[] {GetLogProvider(log)}));
+        }
+
+        /// <summary>
+        /// 获取日志操作
+        /// </summary>
+        /// <returns></returns>
+        protected virtual ILog GetLog()
+        {
+            try
+            {
+                return Log.GetLog(EfLog.TraceLogName);
+            }
+            catch
+            {
+                return Log.Null;
+            }
+        }
+
+        /// <summary>
+        /// 是否启用EF日志
+        /// </summary>
+        /// <param name="log">日志操作</param>
+        /// <returns></returns>
+        private bool IsEnabled(ILog log)
+        {
+            return EfConfig.LogLevel != EfLogLevel.Off && log.IsTraceEnabled;
+        }
+
+        /// <summary>
+        /// 获取日志提供器
+        /// </summary>
+        /// <param name="log">日志操作</param>
+        /// <returns></returns>
+        protected virtual ILoggerProvider GetLogProvider(ILog log)
+        {
+            return new EfLogProvider(log,this);
         }
 
         #endregion

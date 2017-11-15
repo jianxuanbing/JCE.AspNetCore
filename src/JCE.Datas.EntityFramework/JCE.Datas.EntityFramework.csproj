@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JCE.Logs\JCE.Logs.csproj" />
     <ProjectReference Include="..\JCE\JCE.csproj" />
   </ItemGroup>
 

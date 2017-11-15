@@ -11,7 +11,7 @@ namespace JCE.Datas.UnitOfWorks
     /// 工作单元
     /// </summary>
     [Ignore]
-    public interface IUnitOfWork:IDisposable,IScopeDependency
+    public interface IUnitOfWork:IDisposable
     {
         /// <summary>
         /// 提交，返回影响的行数

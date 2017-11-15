@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JCE.Applications.Dtos;
 using JCE.Datas.Queries;
+using JCE.Dependency;
 using JCE.Domains.Repositories;
 
 namespace JCE.Applications
@@ -13,7 +14,7 @@ namespace JCE.Applications
     /// </summary>
     /// <typeparam name="TDto">数据传输对象类型</typeparam>
     /// <typeparam name="TQueryParameter">查询参数类型</typeparam>
-    public interface IQueryService<TDto, in TQueryParameter>
+    public interface IQueryService<TDto, in TQueryParameter>:IScopeDependency
         where TDto : IDto, new() 
         where TQueryParameter : IQueryParameter
     {

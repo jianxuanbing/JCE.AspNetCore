@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using AutoMapper;
@@ -86,6 +87,7 @@ namespace JCE.Utils.AutoMapper
                 var maps = Mapper.Configuration.GetAllTypeMaps();
                 Mapper.Initialize(config =>
                 {
+                    ClearConfig();
                     foreach (var item in maps)
                     {
                         config.CreateMap(item.SourceType, item.DestinationType);
@@ -150,6 +152,16 @@ namespace JCE.Utils.AutoMapper
                 throw new ArgumentException("泛型类型参数不能为空");
             }
             return genericArgumentsTypes[0];
+        }
+
+        /// <summary>
+        /// 清空配置
+        /// </summary>
+        private static void ClearConfig()
+        {
+            var typeMapper = typeof(Mapper).GetTypeInfo();
+            var configuration = typeMapper.GetDeclaredField("_configuration");
+            configuration.SetValue(null,null,BindingFlags.Static,null,CultureInfo.CurrentCulture);
         }
     }
 }

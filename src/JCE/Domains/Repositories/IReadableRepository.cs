@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using JCE.Dependency;
 using JCE.Domains.Entities;
 
 namespace JCE.Domains.Repositories
@@ -22,7 +23,7 @@ namespace JCE.Domains.Repositories
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <typeparam name="TKey">实体标识类型</typeparam>
-    public interface IReadableRepository<TEntity,in TKey> where TEntity:class,IAggregateRoot
+    public interface IReadableRepository<TEntity,in TKey>: IScopeDependency where TEntity:class,IAggregateRoot
     {
         #region Find(懒加载查找实体集合)
 

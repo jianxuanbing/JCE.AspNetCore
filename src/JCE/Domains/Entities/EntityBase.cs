@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using JCE.Utils.Extensions;
 using JCE.Validations;
 
 namespace JCE.Domains.Entities
@@ -107,7 +108,7 @@ namespace JCE.Domains.Entities
         /// </summary>
         public virtual void Init()
         {
-            if (Id == null || Id.Equals(default(TKey)))
+            if (string.IsNullOrWhiteSpace(Id.SafeString()) || Id.Equals(default(TKey)))
             {
                 Id = CreateId();
             }
