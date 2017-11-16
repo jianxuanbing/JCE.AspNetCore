@@ -56,7 +56,7 @@ namespace JCE.Webs.Middlewares
             {
                 return;
             }
-            var log = Log.GetLog().Caption("全局异常捕获").Content("状态码：{0}", context.Response.StatusCode);
+            var log = Log.GetLog().Caption("全局异常捕获").Content($"状态码：{context.Response.StatusCode}");
             ex.Log(log);
         }
     }

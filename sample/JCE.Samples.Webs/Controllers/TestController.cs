@@ -30,12 +30,12 @@ namespace JCE.Samples.Webs.Controllers
                 .Caption("有人下单了")
                 .Params("int", "a", "1")
                 .Params("string", "b", "c")
-                .Content("购买商品数量：{0}", 100)
-                .Content("购买商品总额：{0}", 200)
+                .Content($"购买商品数量：{100}")
+                .Content($"购买商品总额：{200}")
                 .Sql("select * from Users")
                 .Sql("select * from Orders")
-                .SqlParams("@a={0},@b={1}", 1, 2)
-                .SqlParams("@userId={0}", Guid.NewGuid().ToString())
+                .SqlParams($"@a={1},@b={2}")
+                .SqlParams($"@userId={ Guid.NewGuid().ToString()}")
                 .Info();
         }
     }

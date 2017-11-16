@@ -89,11 +89,10 @@ namespace JCE.Logs.Extensions
         /// </summary>
         /// <param name="log">日志操作</param>
         /// <param name="value">值</param>
-        /// <param name="args">变量值</param>
         /// <returns></returns>
-        public static ILog Sql(this ILog log, string value, params object[] args)
+        public static ILog Sql(this ILog log, string value)
         {
-            return log.Set<LogContent>(content => content.AppendLine(content.Sql, value, args));
+            return log.Set<LogContent>(content => content.AppendLine(content.Sql, value));
         }
 
         /// <summary>
@@ -103,9 +102,9 @@ namespace JCE.Logs.Extensions
         /// <param name="value">值</param>
         /// <param name="args">变量值</param>
         /// <returns></returns>
-        public static ILog SqlParams(this ILog log, string value, params object[] args)
+        public static ILog SqlParams(this ILog log, string value)
         {
-            return log.Set<LogContent>(content => content.AppendLine(content.SqlParams, value, args));
+            return log.Set<LogContent>(content => content.AppendLine(content.SqlParams, value));
         }
 
         /// <summary>

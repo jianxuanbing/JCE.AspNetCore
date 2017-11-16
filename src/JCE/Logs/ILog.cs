@@ -35,8 +35,7 @@ namespace JCE.Logs
         /// 跟踪
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        void Trace(string message, params object[] args);
+        void Trace(string message);
 
         /// <summary>
         /// 调试
@@ -47,8 +46,7 @@ namespace JCE.Logs
         /// 调试
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        void Debug(string message, params object[] args);
+        void Debug(string message);
 
         /// <summary>
         /// 信息
@@ -59,8 +57,7 @@ namespace JCE.Logs
         /// 信息
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        void Info(string message, params object[] args);
+        void Info(string message);
 
         /// <summary>
         /// 警告
@@ -71,8 +68,7 @@ namespace JCE.Logs
         /// 警告
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        void Warn(string message, params object[] args);
+        void Warn(string message);
 
         /// <summary>
         /// 错误
@@ -83,8 +79,7 @@ namespace JCE.Logs
         /// 错误
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        void Error(string message, params object[] args);
+        void Error(string message);
 
         /// <summary>
         /// 致命错误
@@ -95,7 +90,6 @@ namespace JCE.Logs
         /// 致命错误
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        void Fatal(string message, params object[] args);
+        void Fatal(string message);
     }
 }

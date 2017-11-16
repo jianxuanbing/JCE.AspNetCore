@@ -105,10 +105,9 @@ namespace JCE.Logs.Core
         /// 跟踪
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Trace(string message, params object[] args)
+        public void Trace(string message)
         {
-            LogContent.Content(message, args);
+            LogContent.Content(message);
             Trace();
         }
 
@@ -125,10 +124,9 @@ namespace JCE.Logs.Core
         /// 调试
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Debug(string message, params object[] args)
+        public void Debug(string message)
         {
-            LogContent.Content(message, args);
+            LogContent.Content(message);
             Debug();
         }
 
@@ -145,10 +143,9 @@ namespace JCE.Logs.Core
         /// 信息
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Info(string message, params object[] args)
+        public void Info(string message)
         {
-            LogContent.Content(message, args);
+            LogContent.Content(message);
             Info();
         }
 
@@ -165,10 +162,9 @@ namespace JCE.Logs.Core
         /// 警告
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Warn(string message, params object[] args)
+        public void Warn(string message)
         {
-            LogContent.Content(message, args);
+            LogContent.Content(message);
             Warn();
         }
 
@@ -185,10 +181,9 @@ namespace JCE.Logs.Core
         /// 错误
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Error(string message, params object[] args)
+        public void Error(string message)
         {
-            LogContent.Content(message, args);
+            LogContent.Content(message);
             Error();
         }
 
@@ -205,10 +200,9 @@ namespace JCE.Logs.Core
         /// 致命错误
         /// </summary>
         /// <param name="message">日志消息</param>
-        /// <param name="args">参数值</param>
-        public void Fatal(string message, params object[] args)
+        public void Fatal(string message)
         {
-            LogContent.Content(message, args);
+            LogContent.Content(message);
             Fatal();
         }
 

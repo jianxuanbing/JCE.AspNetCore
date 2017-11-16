@@ -17,20 +17,14 @@ namespace JCE.Logs.Extensions
         /// <param name="content">日志内容</param>
         /// <param name="result">拼接字符串</param>
         /// <param name="value">值</param>
-        /// <param name="args">参数</param>
-        public static void Append(this ILogContent content, StringBuilder result, string value, params object[] args)
+        public static void Append(this ILogContent content, StringBuilder result, string value)
         {
             if (value.IsEmpty())
             {
                 return;
             }
             result.Append("   ");
-            if (args == null || args.Length == 0)
-            {
-                result.Append(value);
-                return;
-            }
-            result.AppendFormat(value, args);
+            result.AppendFormat(value);
         }
 
         /// <summary>
@@ -39,10 +33,9 @@ namespace JCE.Logs.Extensions
         /// <param name="content">日志内容</param>
         /// <param name="result">拼接字符串</param>
         /// <param name="value">值</param>
-        /// <param name="args">参数</param>
-        public static void AppendLine(this ILogContent content, StringBuilder result, string value, params object[] args)
+        public static void AppendLine(this ILogContent content, StringBuilder result, string value)
         {
-            content.Append(result, value, args);
+            content.Append(result, value);
             result.AppendLine();
         }
 
@@ -51,10 +44,9 @@ namespace JCE.Logs.Extensions
         /// </summary>
         /// <param name="content">日志内容</param>
         /// <param name="value">值</param>
-        /// <param name="args">变量值</param>
-        public static void Content(this ILogContent content, string value, params object[] args)
+        public static void Content(this ILogContent content, string value)
         {
-            content.AppendLine(content.Content, value, args);
+            content.AppendLine(content.Content, value);
         }
     }
 }
