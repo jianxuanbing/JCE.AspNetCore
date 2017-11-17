@@ -15,7 +15,7 @@ namespace JCE.ComputerInfo.Internal
         public const string Caption = "Caption";
 
         /// <summary>
-        /// OS 制造商
+        /// 制造商
         /// </summary>
         public const string Manufacturer = "Manufacturer";
 
@@ -64,6 +64,8 @@ namespace JCE.ComputerInfo.Internal
         /// </summary>
         public const string SizeStoredInPagingFiles = "SizeStoredInPagingFiles";
 
+        
+
         /// <summary>
         /// 磁盘容量
         /// </summary>
@@ -78,5 +80,56 @@ namespace JCE.ComputerInfo.Internal
         /// 总物理内存
         /// </summary>
         public const string TotalPhysicalMemory = "TotalPhysicalMemory";
+
+        /// <summary>
+        /// CPU名称
+        /// </summary>
+        public const string Name = "Name";
+
+        /// <summary>
+        /// CPU Id
+        /// </summary>
+        public const string ProcessorId = "ProcessorId";
+
+        /// <summary>
+        /// CPU 当前时钟频率
+        /// </summary>
+        public const string CurrentClockSpeed = "CurrentClockSpeed";
+
+        /// <summary>
+        /// CPU 最大时钟频率
+        /// </summary>
+        public const string MaxClockSpeed = "MaxClockSpeed";
+
+        /// <summary>
+        /// CPU 外部频率
+        /// </summary>
+        public const string ExtClock = "ExtClock";
+
+        /// <summary>
+        /// CPU 当前电压
+        /// </summary>
+        public const string CurrentVoltage = "CurrentVoltage";
+
+        /// <summary>
+        /// CPU 二级缓存
+        /// </summary>
+        public const string L2CacheSize = "L2CacheSize";
+
+        /// <summary>
+        /// CPU 数据带宽
+        /// </summary>
+        public const string DataWidth = "DataWidth";
+
+        /// <summary>
+        /// CPU 地址带宽
+        /// </summary>
+        public const string AddressWidth = "AddressWidth";
+
+        /// <summary>
+        /// CPU 当前温度
+        /// </summary>
+        public const string CurrentTemperature = "CurrentTemperature";
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JCE.Utils.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
@@ -35,6 +36,7 @@ namespace JCE.ComputerInfo.Test
         {
             var result = SystemInfo.GetOsName();
             Output.WriteLine(result);
+            Output.WriteLine(Environment.MachineName.ToString());
         }
 
         [Fact]
@@ -99,6 +101,13 @@ namespace JCE.ComputerInfo.Test
         {
             var result = SystemInfo.GetPagingFileSize();
             Output.WriteLine(result.ToString());
+        }
+
+        [Fact]
+        public void Test_Instance()
+        {
+            var result = SystemInfo.Instance().ToJson();
+            Output.WriteLine(result);
         }
     }
 }
