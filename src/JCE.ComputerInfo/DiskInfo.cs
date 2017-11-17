@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace JCE.Utils.Devices
+namespace JCE.ComputerInfo
 {
     /// <summary>
     /// 硬盘信息
