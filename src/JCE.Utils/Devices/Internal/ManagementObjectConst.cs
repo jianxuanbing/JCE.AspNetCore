@@ -18,5 +18,10 @@ namespace JCE.Utils.Devices.Internal
         /// 磁盘名
         /// </summary>
         public const string Model = "Model";
+
+        /// <summary>
+        /// 总物理内存
+        /// </summary>
+        public const string TotalPhysicalMemory = "TotalPhysicalMemory";
     }
 }

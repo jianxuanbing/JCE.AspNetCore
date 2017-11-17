@@ -18,12 +18,20 @@ namespace JCE.Utils.Test.Devices
 
         [Fact]
         public void Test_GetDiskInfos()
-        {                                              
-            //var result = ComputerInfo.GetDiskInfos();
-            //foreach (var diskInfo in result)
-            //{
-            //    Output.WriteLine($"磁盘名：{diskInfo.Name}，磁盘大小：{diskInfo.Size} KB");
-            //}
+        {
+            
+            var result = ComputerInfo.GetDiskInfos();
+            foreach (var diskInfo in result)
+            {
+                Output.WriteLine($"磁盘名：{diskInfo.Name}，磁盘大小：{diskInfo.Size} KB");
+            }
+        }
+
+        [Fact]
+        public void Test_GetTotalPhysicalMemory()
+        {
+            var result=ComputerInfo.GetTotalPhysicalMemory();
+            Output.WriteLine(result.ToString());
         }
     }
 }

@@ -34,5 +34,24 @@ namespace JCE.Utils.Devices
         }
 
         #endregion
+
+        #region GetTotalPhysicalMemory(获取总物理内存大小)
+
+        /// <summary>
+        /// 获取总物理内存大小
+        /// </summary>
+        /// <returns></returns>
+        public static long GetTotalPhysicalMemory()
+        {
+            using (ManagementClass mc=new ManagementClass(WmiPathConst.ComputerSystem))
+            {
+                ManagementObjectCollection moc = mc.GetInstances();
+                return moc.OfType<ManagementObject>()
+                    .Select(mo => Convert.ToInt64(mo[ManagementObjectConst.TotalPhysicalMemory].ToString()))
+                    .FirstOrDefault();
+            }
+        }
+
+        #endregion
     }
 }
