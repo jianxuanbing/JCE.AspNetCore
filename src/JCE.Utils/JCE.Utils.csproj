@@ -26,7 +26,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="Nito.AsyncEx" Version="5.0.0-pre-05" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.0" />
-    <PackageReference Include="System.Management" Version="4.5.0-preview1-25914-04" />
   </ItemGroup>
 
   <ItemGroup>

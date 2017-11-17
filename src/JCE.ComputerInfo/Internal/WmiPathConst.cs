@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace JCE.Utils.Devices.Internal
+namespace JCE.ComputerInfo.Internal
 {
     /// <summary>
     /// WMI 路径常量
