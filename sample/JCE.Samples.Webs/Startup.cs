@@ -38,7 +38,7 @@ namespace JCE.Samples.Webs
             //});
             var serviceProvider = services.AddJce();            
 
-            var accessor = serviceProvider.GetService<IHttpContextAccessor>();
+            var accessor = serviceProvider.GetService<IHttpContextAccessor>();            
             Web.SetHttpContextAccessor(accessor);
 
             return serviceProvider;
