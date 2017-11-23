@@ -83,6 +83,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JCE.ComputerInfo.Test", "te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JCE.Samples.Services", "sample\JCE.Samples.Services\JCE.Samples.Services.csproj", "{F8E4AED7-129F-4E01-9F2F-F0D582A22361}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-demo", "04-demo", "{072FE53E-C199-44B4-8AA6-C42700A8E9D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Domains", "demo\Demo.Domains\Demo.Domains.csproj", "{F3085CBA-04DC-44C3-9909-AF665E370800}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -193,6 +197,10 @@ Global
 		{F8E4AED7-129F-4E01-9F2F-F0D582A22361}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8E4AED7-129F-4E01-9F2F-F0D582A22361}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8E4AED7-129F-4E01-9F2F-F0D582A22361}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3085CBA-04DC-44C3-9909-AF665E370800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3085CBA-04DC-44C3-9909-AF665E370800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3085CBA-04DC-44C3-9909-AF665E370800}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3085CBA-04DC-44C3-9909-AF665E370800}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -235,6 +243,7 @@ Global
 		{A423B64E-4E58-414A-989E-C0C7E6309621} = {158DCA65-4685-49A8-8504-5CF81F05789D}
 		{88417B5E-8ECA-4038-B878-70F8740ECD43} = {CBD3A234-18FA-4D70-9E0A-01349D0A1C21}
 		{F8E4AED7-129F-4E01-9F2F-F0D582A22361} = {E20E7072-8DC7-4D7E-9701-1285D0D5AA20}
+		{F3085CBA-04DC-44C3-9909-AF665E370800} = {072FE53E-C199-44B4-8AA6-C42700A8E9D8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C380A49E-1EFF-447A-B6A2-F1AC71FCBABE}
