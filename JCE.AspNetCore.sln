@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JCE.Utils", "src\JCE.Utils\JCE.Utils.csproj", "{FB2AC0A6-167E-4330-BA70-BAF1BC434056}"
 EndProject
@@ -77,9 +77,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JCE.Tools.QrCode.ZXing.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JCE.Tools.QrCode.QrCoder", "src\JCE.Tools.QrCode.QrCoder\JCE.Tools.QrCode.QrCoder.csproj", "{BC4383E7-CD85-46B8-A19D-7F9E20E9514F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JCE.ComputerInfo", "src\JCE.ComputerInfo\JCE.ComputerInfo.csproj", "{A423B64E-4E58-414A-989E-C0C7E6309621}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JCE.ComputerInfo", "src\JCE.ComputerInfo\JCE.ComputerInfo.csproj", "{A423B64E-4E58-414A-989E-C0C7E6309621}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JCE.ComputerInfo.Test", "test\JCE.ComputerInfo.Test\JCE.ComputerInfo.Test.csproj", "{88417B5E-8ECA-4038-B878-70F8740ECD43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JCE.ComputerInfo.Test", "test\JCE.ComputerInfo.Test\JCE.ComputerInfo.Test.csproj", "{88417B5E-8ECA-4038-B878-70F8740ECD43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JCE.Samples.Services", "sample\JCE.Samples.Services\JCE.Samples.Services.csproj", "{F8E4AED7-129F-4E01-9F2F-F0D582A22361}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -187,6 +189,10 @@ Global
 		{88417B5E-8ECA-4038-B878-70F8740ECD43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88417B5E-8ECA-4038-B878-70F8740ECD43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88417B5E-8ECA-4038-B878-70F8740ECD43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8E4AED7-129F-4E01-9F2F-F0D582A22361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8E4AED7-129F-4E01-9F2F-F0D582A22361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8E4AED7-129F-4E01-9F2F-F0D582A22361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8E4AED7-129F-4E01-9F2F-F0D582A22361}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -228,6 +234,7 @@ Global
 		{BC4383E7-CD85-46B8-A19D-7F9E20E9514F} = {A8FE058F-EC31-4D7D-ACA2-57AA4DEB1058}
 		{A423B64E-4E58-414A-989E-C0C7E6309621} = {158DCA65-4685-49A8-8504-5CF81F05789D}
 		{88417B5E-8ECA-4038-B878-70F8740ECD43} = {CBD3A234-18FA-4D70-9E0A-01349D0A1C21}
+		{F8E4AED7-129F-4E01-9F2F-F0D582A22361} = {E20E7072-8DC7-4D7E-9701-1285D0D5AA20}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C380A49E-1EFF-447A-B6A2-F1AC71FCBABE}

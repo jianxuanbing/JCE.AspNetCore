@@ -29,6 +29,7 @@
     <ProjectReference Include="..\..\src\JCE.Logs.NLog\JCE.Logs.NLog.csproj" />
     <ProjectReference Include="..\..\src\JCE.Utils\JCE.Utils.csproj" />
     <ProjectReference Include="..\..\src\JCE\JCE.csproj" />
+    <ProjectReference Include="..\JCE.Samples.Services\JCE.Samples.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

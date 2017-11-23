@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using JCE.Logs;
 using JCE.Logs.Extensions;
+using JCE.Samples.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JCE.Samples.Webs.Controllers
@@ -16,9 +17,12 @@ namespace JCE.Samples.Webs.Controllers
         /// </summary>
         public ILog Log { get; set; }
 
-        public TestController(ILog log)
+        private ITestService _testService;
+
+        public TestController(ILog log,ITestService testService)
         {
             Log = log;
+            _testService = testService;
         }
 
         [HttpPost("[action]")]
@@ -37,6 +41,12 @@ namespace JCE.Samples.Webs.Controllers
                 .SqlParams($"@a={1},@b={2}")
                 .SqlParams($"@userId={ Guid.NewGuid().ToString()}")
                 .Info();
+        }
+
+        [HttpPost("[action]")]
+        public void SendContent(string content)
+        {
+            _testService.WriteOtherLog(content);
         }
     }
 }

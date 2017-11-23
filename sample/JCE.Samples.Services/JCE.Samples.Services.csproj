@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\JCE.Logs\JCE.Logs.csproj" />
+    <ProjectReference Include="..\..\src\JCE\JCE.csproj" />
+  </ItemGroup>
+
+</Project>
