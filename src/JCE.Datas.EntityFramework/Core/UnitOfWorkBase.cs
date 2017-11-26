@@ -253,7 +253,7 @@ namespace JCE.Datas.EntityFramework.Core
         /// <param name="entry">输入实体</param>
         private void InitCreationAudited(EntityEntry entry)
         {
-            CreationAuditedInitializer.Init(entry,GetUserContext());
+            CreationAuditedInitializer.Init(entry.Entity,GetUserContext());
         }
 
         /// <summary>
@@ -271,7 +271,7 @@ namespace JCE.Datas.EntityFramework.Core
         /// <param name="entry">输入实体</param>
         private void InitModificationAudited(EntityEntry entry)
         {
-            ModificationAuditedInitializer.Init(entry,GetUserContext());
+            ModificationAuditedInitializer.Init(entry.Entity,GetUserContext());
         }
 
         /// <summary>
