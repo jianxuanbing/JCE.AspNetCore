@@ -141,11 +141,11 @@ namespace JCE.Datas.EntityFramework.Core
         /// 异步提交，返回影响的行数
         /// </summary>
         /// <returns></returns>
-        public Task<int> CommitAsync()
+        public async Task<int> CommitAsync()
         {
             try
             {
-                return SaveChangesAsync();
+                return await SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -299,7 +299,7 @@ namespace JCE.Datas.EntityFramework.Core
         /// </summary>
         /// <param name="cancellationToken">取消令牌</param>
         /// <returns></returns>
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             SaveChangesBefore();
             return base.SaveChangesAsync(cancellationToken);
